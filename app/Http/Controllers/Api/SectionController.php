@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SectionRequest;
+use App\Http\Resources\SectionResource;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+use App\Models\Section;
+
+class SectionController extends Controller
+{
+    
+    public function index()
+    {
+        $sections = Section::all();
+        if($sections) {
+            return SectionResource::collection($sections);
+        }else {
+            return response()->json(['message' => 'no section found' ,'data' => []],Response::HTTP_OK );
+        }
+    }
+
+   
+    public function store(SectionRequest $request)
+    {
+        $section = Section::create([
+            "section" => $request->section,
+            "shelf" => $request->shelf,
+            "total" => $request->total,
+            "remain" => $request->total,
+            "status" => "exist"
+        ]);
+
+        return SectionResource::make($section);
+    }
+
+   
+    public function show(string $id)
+    {
+        //
+    }
+
+   
+    public function update(SectionRequest $request, Section $section)
+    {
+        $section->update([
+            "section" => $request->section,
+            "shelf" => $request->shelf,
+            "total" => $request->total,
+            "remain" => $request->total,
+            "status" => $request->status
+        ]);
+
+        return SectionResource::make($section);
+    }
+
+  
+    public function destroy(string $id)
+    {
+        $section = Section::find($id);
+        if($section) {
+            $section->delete();
+            return response()->json(['message','section deleted successfully'],Response::HTTP_NO_CONTENT);
+        }else {
+            return response()->json(['message','the item not found'],Response::HTTP_NOT_FOUND);
+        }
+    }
+}
