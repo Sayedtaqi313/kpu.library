@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Http\Resources\FacultyResource;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\BookResource;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +16,73 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Book;
+use App\Models\Reserve;
+use App\Models\Faculty;
 use Hash;
 
+  /**
+     * @OA\PathItem(path="/api")
+     *
+     * @OA\Info(
+     *      version="0.0.0",
+     *      title="Anophel API Documentation"
+     *  )
+     */
 class HomeController extends Controller
 {
- 
+
+        public function getFacultyWithDepartments(Request $request) {
+            $request->merge(['faculty_with_dartments'=>'yes']);
+            $faculties = Faculty::all();
+            return FacultyResource::collection($faculties);
+        }
+       /**
+        * @OA\Post(
+        * path="/api/register",
+        * operationId="Register",
+        * tags={"Register"},
+        * summary="User Register",
+        * description="User Register here but first you have to fill the the faculty and department because the user belongs to a faculty and department",
+        *     @OA\RequestBody(
+        *         @OA\JsonContent(),
+        *         @OA\MediaType(
+        *            mediaType="multipart/form-data",
+        *            @OA\Schema(
+        *               type="object",
+        *               required={"firstName","lastName", "email","password","current_residence","original_residence","phone","nic","fac_id", "dep_id", "type"},
+        *               @OA\Property(property="firstName", type="text"),
+        *               @OA\Property(property="lastName", type="text"),
+        *               @OA\Property(property="email", type="text"),
+        *               @OA\Property(property="password", type="password"),
+        *               @OA\Property(property="phone", type="text"),
+        *               @OA\Property(property="nic", type="text"),
+        *               @OA\Property(property="current_residence", type="text"),
+        *               @OA\Property(property="original_residence", type="text"),
+        *               @OA\Property(property="fac_id", type="text"),
+        *               @OA\Property(property="dep_id", type="text"),
+        *               @OA\Property(property="type", type="text"),
+        *            ),
+        *        ),
+        *    ),
+        *      @OA\Response(
+        *          response=201,
+        *          description="Register Successfully",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(
+        *          response=200,
+        *          description="Register Successfully",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(
+        *          response=422,
+        *          description="Unprocessable Entity",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(response=400, description="Type is incorrect"),
+        *      @OA\Response(response=404, description="Resource Not Found"),
+        * )
+        */
     public function register(RegisterRequest $request)
     {
         $user = null;
@@ -70,6 +133,7 @@ class HomeController extends Controller
 
     public function login(LoginRequest $request)
     {
+        $request->merge(['login' => 'yes']);
         $user = User::where('email',$request->email)->first();
         if($user) {
             if(Hash::check($request->password,$user->password)){
@@ -96,6 +160,7 @@ class HomeController extends Controller
     }
 
     public function booksByCategoryId(Request $request , string $id) {
+
         $request->merge(['category_with_books'=>'yes']);
         $category = Category::find($id);
 
@@ -114,5 +179,34 @@ class HomeController extends Controller
         }
 
         return response()->json(['message' => "item not found"],Response::HTTP_NOT_FOUND);
+    }
+
+    public function reserveBook(Request $request, string $id)
+    {
+        if(auth()->user()->status == "inactive"){
+          return response()->json(['message' => 'you are not activated']);
+        }else if(auth()->user()->reserve){
+           return response()->json(['message' => 'You can not reserve more than one book']);
+        }
+       $book = Book::find($id);
+       if ($book) {
+          if ($book->stock->remain > 0) {
+             $reserve = Reserve::create([
+                'book_id' => $book->id,
+                'user_id' => auth()->user()->id,
+                'user_type' => auth()->user()->type,
+                'status' => 'inactive'
+             ]);
+ 
+             return response()->json(['message' => 'You have successfully reserved book']);
+ 
+          } else {
+             return response()->json(['message' => 'All books are Reserved'],Response::HTTP_CONFLICT);
+          }
+ 
+ 
+       } else {
+          return response()->json(['message' => 'Item not found'], Response::HTTP_NOT_FOUND);
+       }
     }
 }

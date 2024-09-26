@@ -29,6 +29,7 @@ class BookController extends Controller
    
     public function store(StoreBookRequest $request)
     {
+   
         $book = Book::create([
             'title' => $request->title,
             'author' => $request->author,
@@ -48,6 +49,13 @@ class BookController extends Controller
         $path = $request->file('image')->store('images/books','public');
         $book->image()->create([
             'image' => $path
+        ]);
+
+        $book->stock()->create([
+            'book_id' => $book->id,
+            'total' => $request->total,
+            'remain' => $request->total,
+            'status' => "exist",
         ]);
         return BookResource::make($book);
     }
@@ -88,6 +96,13 @@ class BookController extends Controller
                 'image' => $path
             ]);
             }
+
+            $book->stock()->update([
+                'book_id' => $book->id,
+                'total' => $request->total,
+                'remain' => $request->total,
+                'status' => $request->status
+            ]);
          
         
         return BookResource::make($book);

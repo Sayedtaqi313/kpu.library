@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Section;
 use App\Models\Categroy;
 use App\Models\Image;
+use App\Models\Stock;
+use App\Models\Reserve;
 class Book extends Model
 {
     use HasFactory;
@@ -37,6 +39,14 @@ class Book extends Model
  
     public function image() {
         return $this->morphOne(Image::class,'imageable');
+    }
+
+    public function stock() {
+        return $this->hasOne(Stock::class,'book_id');
+    }
+
+    public function reserve() {
+        return $this->hasOne(Reserve::class,'book_id');
     }
 
 }

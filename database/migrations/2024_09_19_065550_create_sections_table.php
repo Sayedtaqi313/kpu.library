@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('section');
             $table->string('shelf');
-            $table->integer('total');
-            $table->integer('remain')->default(0);
-            $table->enum('status',['exist','notExist','printing'])->default("exist");
             $table->timestamps();
         });
     }

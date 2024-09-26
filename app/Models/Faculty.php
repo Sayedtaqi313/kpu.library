@@ -10,4 +10,7 @@ class Faculty extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    public function departments() {
+        return $this->hasMany(Department::class,'fac_id');
+    }
 }

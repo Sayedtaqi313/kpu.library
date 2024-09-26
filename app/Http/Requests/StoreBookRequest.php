@@ -36,6 +36,7 @@ class StoreBookRequest extends FormRequest
             "sec_id" => "required",
             "format" => "required",
             "barrow" => "required",
+            "total" => "required",
             "image" => "required|image|mimes:png,jpg,jpeg|max:1024"
         ];
     }

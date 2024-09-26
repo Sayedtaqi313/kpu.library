@@ -17,8 +17,6 @@ class SectionResource extends JsonResource
         return [
             'section' => $this->section,
             'shelf' => $this->shelf,
-            'total' => $this->total,
-            'status' => $this->status
         ];
     }
 }

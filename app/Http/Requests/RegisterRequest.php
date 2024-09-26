@@ -32,7 +32,6 @@ class RegisterRequest extends FormRequest
             "current_residence" => "required",
             "fac_id" => "required",
             "dep_id" => "required",
-            "status" => "required|in:active,inactive",
             "type" => "required|in:teacher,student",
         ];
     }

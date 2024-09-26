@@ -28,9 +28,6 @@ class SectionController extends Controller
         $section = Section::create([
             "section" => $request->section,
             "shelf" => $request->shelf,
-            "total" => $request->total,
-            "remain" => $request->total,
-            "status" => "exist"
         ]);
 
         return SectionResource::make($section);
@@ -48,9 +45,6 @@ class SectionController extends Controller
         $section->update([
             "section" => $request->section,
             "shelf" => $request->shelf,
-            "total" => $request->total,
-            "remain" => $request->total,
-            "status" => $request->status
         ]);
 
         return SectionResource::make($section);

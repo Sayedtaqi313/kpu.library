@@ -1,0 +1,118 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Anophel API Documentation",
+        "version": "0.0.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "User Register",
+                "description": "User Register here but first you have to fill the the faculty and department because the user belongs to a faculty and department",
+                "operationId": "Register",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "firstName",
+                                    "lastName",
+                                    "email",
+                                    "password",
+                                    "current_residence",
+                                    "original_residence",
+                                    "phone",
+                                    "nic",
+                                    "fac_id",
+                                    "dep_id",
+                                    "type"
+                                ],
+                                "properties": {
+                                    "firstName": {
+                                        "type": "text"
+                                    },
+                                    "lastName": {
+                                        "type": "text"
+                                    },
+                                    "email": {
+                                        "type": "text"
+                                    },
+                                    "password": {
+                                        "type": "password"
+                                    },
+                                    "phone": {
+                                        "type": "text"
+                                    },
+                                    "nic": {
+                                        "type": "text"
+                                    },
+                                    "current_residence": {
+                                        "type": "text"
+                                    },
+                                    "original_residence": {
+                                        "type": "text"
+                                    },
+                                    "fac_id": {
+                                        "type": "text"
+                                    },
+                                    "dep_id": {
+                                        "type": "text"
+                                    },
+                                    "type": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Type is incorrect"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Register",
+            "description": "Register"
+        }
+    ]
+}

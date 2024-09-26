@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SectionRequest extends FormRequest
+class setBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class SectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "section" => "required",
-            "shelf" => "required",          
+            'return_by' => 'required'
         ];
     }
 }

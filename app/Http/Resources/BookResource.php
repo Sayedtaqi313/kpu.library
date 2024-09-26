@@ -18,6 +18,7 @@ class BookResource extends JsonResource
         //this respone if for the detail of the book;
         if($request->has('detial')) {
             return [
+                "image_url" => asset($this->image->image),
                 'title' => $this->title,
                 'author' => $this->author,
                 "publisher" => $this->publisher,
@@ -28,13 +29,14 @@ class BookResource extends JsonResource
                 "isbn" => $this->isbn,
                 "format" => $this->format,
                 "barrow" => $this->barrow,
-                "category" => CategoryResource::make($this->category)
+                "category" => (CategoryResource::make($this->category))
             ];
         }
         return [
             "title" => $this->title,
             "author" => $this->author,
             "publisher" => $this->publisher,
+            "image_url" => asset($this->image->image)
         ];
     }
 
