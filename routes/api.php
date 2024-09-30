@@ -36,5 +36,8 @@ Route::get('users/unactivated_users',[UserController::class,'getUnativatedUsers'
 Route::get('users/unactivated_users/{user}',[UserController::class,'getUnactivatedUserDetial']);
 Route::post('users/activate_user/{user}',[UserController::class,'ativatedUserById']);
 //set book to the active user if they are active
-Route::get('reserves/inactive/users',[ReserveController::class,'getAllReserve']);
+Route::get('reserves/inactive/users',[ReserveController::class,'getAllReserves']);
+Route::get('reserves/inactive/users_detail/{reserve}',[ReserveController::class,'getReservedBookUserById']);
+Route::get('reserves/inactive/book_detail/{reserve}',[ReserveController::class,'getReservedBookDetailById']);
 Route::post('reserves/atctive/{reserve}',[ReserveController::class,'setBook']);
+

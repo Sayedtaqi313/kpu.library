@@ -39,7 +39,7 @@ class User extends Authenticatable
         return $this->morphTo();
     }
 
-    public function reserve() {
-        return $this->hasOne(Reserve::class,'user_id');
+    public function reserves() {
+        return $this->hasMany(Reserve::class,'user_id');
     }
 }

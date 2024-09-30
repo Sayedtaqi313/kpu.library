@@ -39,13 +39,20 @@ class FacultyController extends Controller
     }
 
    
-    public function update(FacultyRequest $request, Faculty $faculty)
+    public function update(FacultyRequest $request, string $id)
     {
-        $faculty->update([
-            "name" => $request->name
-        ]);
+        $faculty = Faculty::find($id);
+        if($faculty) {
+            $faculty->update([
+                "name" => $request->name
+            ]);
+            return FacultyResource::make($faculty);
+        }else {
+            return response()->json(['message' => "Faculty not found"],Response::HTTP_NOT_FOUND);
+        }
+      
 
-        return FacultyResource::make($faculty);
+       
     }
 
   
@@ -54,9 +61,9 @@ class FacultyController extends Controller
         $faculty = Faculty::find($id);
         if($faculty) {
             $faculty->delete();
-            return response()->json(['message' => "faculty deleted successfully"],Response::HTTP_NO_CONTENT);
+            return response()->json(['message' => "Faculty deleted successfully"],Response::HTTP_NO_CONTENT);
         }else {
-            return response()->json(['message' => "item not found"],Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => "Faculty not found"],Response::HTTP_NOT_FOUND);
         }
      
     }

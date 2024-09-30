@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('edition');
             $table->string('translator');
             $table->string('isbn');
+            $table->string('code');
             $table->text('description')->nullable();
             $table->foreignId('cat_id')->constrained('categories','id');
             $table->foreignId('dep_id')->constrained('departments','id');

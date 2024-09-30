@@ -42,15 +42,20 @@ class DepartmentController extends Controller
     }
 
    
-    public function update(DepartmentRequest $request, Department $Department)
+    public function update(DepartmentRequest $request, string $id)
     {
-        $Department->update([
-            "name" => $request->name,
-            "fac_id" => $request->fac_id
-        
-        ]);
-
-        return DepartmentResource::make($Department);
+        $department = Department::find($id);
+        if($department) {
+            $department->update([
+                "name" => $request->name,
+                "fac_id" => $request->fac_id
+            
+            ]);
+            return DepartmentResource::make($department);
+        }else {
+            return response()->json(['message' => "Department not found"],Response::HTTP_NOT_FOUND);
+        }
+      
     }
 
   
@@ -59,9 +64,9 @@ class DepartmentController extends Controller
         $department = Department::find($id);
         if($department) {
             $department->delete();
-            return response()->json(['message' => "department deleted successfully"],Response::HTTP_NO_CONTENT);
+            return response()->json(['message' => "Department deleted successfully"],Response::HTTP_NO_CONTENT);
         }else {
-            return response()->json(['message' => "item not found"],Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => "Dpartment not found"],Response::HTTP_NOT_FOUND);
         }
      
     }

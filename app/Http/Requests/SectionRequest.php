@@ -23,7 +23,6 @@ class SectionRequest extends FormRequest
     {
         return [
             "section" => "required",
-            "shelf" => "required",          
         ];
     }
 }

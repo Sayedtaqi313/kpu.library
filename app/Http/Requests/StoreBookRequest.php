@@ -37,6 +37,7 @@ class StoreBookRequest extends FormRequest
             "format" => "required",
             "barrow" => "required",
             "total" => "required",
+            "shelf" => "required",
             "image" => "required|image|mimes:png,jpg,jpeg|max:1024"
         ];
     }

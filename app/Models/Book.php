@@ -49,4 +49,5 @@ class Book extends Model
         return $this->hasOne(Reserve::class,'book_id');
     }
 
+    
 }

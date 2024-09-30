@@ -27,7 +27,6 @@ class SectionController extends Controller
     {
         $section = Section::create([
             "section" => $request->section,
-            "shelf" => $request->shelf,
         ]);
 
         return SectionResource::make($section);
@@ -44,7 +43,6 @@ class SectionController extends Controller
     {
         $section->update([
             "section" => $request->section,
-            "shelf" => $request->shelf,
         ]);
 
         return SectionResource::make($section);

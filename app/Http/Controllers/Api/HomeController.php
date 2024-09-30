@@ -91,6 +91,7 @@ class HomeController extends Controller
                 "firstName" => $request->firstName,
                 "lastName" => $request->lastName,
                 "phone" => $request->phone,
+                "nin" => $request->nin,
                 "nic" => $request->nic,
                 "current_residence" => $request->current_residence,
                 "original_residence" => "kabul",
@@ -109,9 +110,10 @@ class HomeController extends Controller
                 "firstName" => $request->firstName,
                 "lastName" => $request->lastName,
                 "phone" => $request->phone,
+                "nin" => $request->nin,
                 "nic" => $request->nic,
                 "current_residence" => $request->current_residence,
-                "original_residence" => "kabul",
+                "original_residence" => $request->original_residence,
                 "fac_id" => $request->fac_id,
                 "dep_id" => $request->dep_id,
             ]);
@@ -183,10 +185,16 @@ class HomeController extends Controller
 
     public function reserveBook(Request $request, string $id)
     {
+        
         if(auth()->user()->status == "inactive"){
           return response()->json(['message' => 'you are not activated']);
-        }else if(auth()->user()->reserve){
-           return response()->json(['message' => 'You can not reserve more than one book']);
+        }
+
+        $reserved_books =  auth()->user()->reserves;
+        foreach($reserved_books as $reserved_book) {
+            if($reserved_book->book_id == $id) {
+               return response()->json(['message' => 'you can not reserve same book towice']);
+            }
         }
        $book = Book::find($id);
        if ($book) {
@@ -195,9 +203,11 @@ class HomeController extends Controller
                 'book_id' => $book->id,
                 'user_id' => auth()->user()->id,
                 'user_type' => auth()->user()->type,
-                'status' => 'inactive'
              ]);
- 
+
+             $book->stock->remain = $book->stock->remain -1;
+             $book->stock->save();
+             
              return response()->json(['message' => 'You have successfully reserved book']);
  
           } else {
@@ -206,7 +216,7 @@ class HomeController extends Controller
  
  
        } else {
-          return response()->json(['message' => 'Item not found'], Response::HTTP_NOT_FOUND);
+          return response()->json(['message' => 'Book not found'], Response::HTTP_NOT_FOUND);
        }
     }
 }

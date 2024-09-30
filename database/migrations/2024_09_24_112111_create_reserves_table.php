@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('book_id')->constrained('books','id');
             $table->foreignId('user_id')->constrained('users','id');
             $table->string('user_type');
-            $table->enum('status',['active','inactive']);
+            $table->enum('status',['active','inactive'])->default('inactive');
             $table->timestamps();
         });
     }

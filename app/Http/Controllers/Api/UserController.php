@@ -18,13 +18,14 @@ class UserController extends Controller
     }
 
     public function getUnactivatedUserDetial(Request $request, string $id) {
+ 
         $request->merge(['getUnactivated_user_detail'=>'yes']);
         $unactivatedUser = User::where('id','=',$id)->where('status','=','inactive')->first();
         if($unactivatedUser) {
             return UserResource::make($unactivatedUser);
         }
 
-        return response()->json(['message','Item not found'],Response::HTTP_NOT_FOUND);
+        return response()->json(['message','No user found'],Response::HTTP_NOT_FOUND);
     }
 
     public function ativatedUserById(Request $request,string $id) {

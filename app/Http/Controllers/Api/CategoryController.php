@@ -35,8 +35,9 @@ class CategoryController extends Controller
     }
 
    
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, string $id)
     {
+        $category = Category::find($id);
         if($category) {
             $category->update([
                 "name" => $request->name
@@ -45,7 +46,7 @@ class CategoryController extends Controller
             return CategoryResource::make($category);
         }
 
-        return response()->json(['message' => "item not found"],Response::HTTP_NOT_FOUND);
+        return response()->json(['message' => "Category not found"],Response::HTTP_NOT_FOUND);
     
     }
 
@@ -57,7 +58,7 @@ class CategoryController extends Controller
             $Category->delete();
             return response()->json(['message' => "Category deleted successfully"],Response::HTTP_NO_CONTENT);
         }else {
-            return response()->json(['message' => "item not found"],Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => "Category not found"],Response::HTTP_NOT_FOUND);
         }
      
     }

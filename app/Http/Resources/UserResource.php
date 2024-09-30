@@ -25,8 +25,8 @@ class UserResource extends JsonResource
         }else if($request->has('getUnativaedUsers')){
             return [
                 "user_id" => $this->id,
-                "firstName" => $this->firstName,
-                "lastName" => $this->lastName,
+                "firstName" => $this->userable->firstName,
+                "lastName" => $this->userable->lastName,
                 "type" => $this->type,
                 "status" => $this->status
             ];
@@ -38,10 +38,11 @@ class UserResource extends JsonResource
                 "email" => $this->email,
                 "type" => $this->type,
                 "status" => $this->status,
+                "nin" => $this->userable->nin,
                 "nic" => $this->userable->nic,
                 "phone" => $this->userable->phone,
-                "current_residence" => $this->current_residence,
-                "original_residence" => $this->original_residence,
+                "current_residence" => $this->userable->current_residence,
+                "original_residence" => $this->userable->original_residence,
                 "faculty" => Department::find($this->userable->fac_id)->first()->name,
                 "department" => Faculty::find($this->userable->dep_id)->first()->name,
 
