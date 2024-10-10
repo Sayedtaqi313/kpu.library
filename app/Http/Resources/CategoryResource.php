@@ -19,7 +19,8 @@ class CategoryResource extends JsonResource
             return [
                 'id' => $this->id,
                 'name' => $this->name,
-                'books' => BookResource::collection($this->books)
+                'all_books' => $this->books->count(),
+                'books' => BookResource::collection($this->books),
             ];
         };
         

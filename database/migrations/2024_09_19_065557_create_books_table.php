@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreignId('cat_id')->constrained('categories','id');
             $table->foreignId('dep_id')->constrained('departments','id');
             $table->foreignId('sec_id')->constrained('sections','id');
-            $table->enum('format',['hard','pdf','both']);
+            $table->enum('format',['hard','pdf']);
             $table->enum('barrow',['yes','no']);
             $table->timestamps();
         });

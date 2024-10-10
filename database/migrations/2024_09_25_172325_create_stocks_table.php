@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained('books','id');
+            $table->foreignId('book_id')->constrained('books','id')->onDelete('cascade');
             $table->integer('total');
             $table->integer('remain')->default(0);
             $table->enum('status',['exist','notExist','printing'])->default("exist");

@@ -31,6 +31,7 @@ class StoreBookRequest extends FormRequest
             "translator" => "required",
             "isbn" => "required",
             "description" => "nullable",
+            "code" => "required",
             "cat_id" => "required",
             "dep_id" => "required",
             "sec_id" => "required",

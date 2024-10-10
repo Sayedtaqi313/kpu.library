@@ -42,4 +42,9 @@ class User extends Authenticatable
     public function reserves() {
         return $this->hasMany(Reserve::class,'user_id');
     }
+
+    public function carts() {
+        return $this->hasMany(Cart::class,'user_id');
+    }
+
 }

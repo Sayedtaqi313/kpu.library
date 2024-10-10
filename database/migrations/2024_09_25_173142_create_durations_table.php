@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('durations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('res_id')->constrained('reserves','id');
+            $table->foreignId('res_id')->constrained('reserves','id')->onDelete('cascade');
             $table->date('borrowed_at');
             $table->date('return_by');
+            $table->enum('time',['finished','notFinished'])->default('notFinished');
             $table->timestamps();
         });
     }

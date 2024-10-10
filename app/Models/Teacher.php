@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Image;
+use App\Models\Faculty;
+use App\Models\Department;
+
 
 
 class Teacher extends Model
@@ -22,5 +25,12 @@ class Teacher extends Model
 
     public function profile() {
         return $this->hasOne(Profile::class,'teacher_id');
+    }
+    public function department() {
+        return $this->belongsTo(Department::class,'dep_id');
+    }
+
+    public function faculty() {
+        return $this->belongsTo(Faculty::class,'fac_id');
     }
 }

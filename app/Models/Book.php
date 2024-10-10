@@ -27,6 +27,7 @@ class Book extends Model
         'sec_id',
         'format',
         'barrow',
+        'code',
     ];
 
     public function section() {
@@ -45,8 +46,12 @@ class Book extends Model
         return $this->hasOne(Stock::class,'book_id');
     }
 
-    public function reserve() {
-        return $this->hasOne(Reserve::class,'book_id');
+    public function reserves() {
+        return $this->hasMany(Reserve::class,'book_id');
+    }
+
+    public function carts() {
+        return $this->hasOne(Cart::class,'book_id','id');
     }
 
     

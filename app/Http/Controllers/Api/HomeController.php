@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Resources\FacultyResource;
+use App\Models\Department;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\BookResource;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,6 +87,14 @@ class HomeController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = null;
+        $faculty = Faculty::find($request->fac_id);
+        $department = Department::find($request->dep_id);
+        if(!$faculty) {
+            return response()->json(['message' => "Faculty not found"],Response::HTTP_NOT_FOUND);
+        }
+        if(!$department) {
+            return response()->json(['message' => "Department not found"],Response::HTTP_NOT_FOUND);
+        }
         if (strtolower($request->type) == "teacher") {
             $teacher = Teacher::create([
                 "firstName" => $request->firstName,
@@ -99,6 +108,13 @@ class HomeController extends Controller
                 "dep_id" => $request->dep_id,
             ]);
 
+            if($request->hasFile('image')){
+                $path = $request->file('image')->store('images/users','public');
+                $path = "storage/" . $path; 
+                $teacher->image()->create([
+                    'image' => $path
+                ]); 
+            }
           $user =  $teacher->user()->create([
                 "email" => $request->email,
                 "password" => Hash::make($request->password),
@@ -118,6 +134,13 @@ class HomeController extends Controller
                 "dep_id" => $request->dep_id,
             ]);
  
+            if($request->hasFile('image')){
+                $path = $request->file('image')->store('images/users','public');
+                $path = "storage/" . $path; 
+                $student->image()->create([
+                    'image' => $path
+                ]); 
+
            $user = $student->user()->create([
                 "email" => $request->email,
                 "password" => Hash::make($request->password),
@@ -128,11 +151,13 @@ class HomeController extends Controller
             return response()->json(['message' => 'Type is incorrect'], 400);
         }
 
+  
+
         $token = $user->createToken($user->email . '123')->plainTextToken;
         return response()->json(['token' => $token, 'user' => UserResource::make($user)]);
     }
 
-
+}    
     public function login(LoginRequest $request)
     {
         $request->merge(['login' => 'yes']);

@@ -54,6 +54,7 @@ class BookController extends Controller
             'translator' => $request->translator,
             'isbn' => $request->isbn,
             'description' => $request->description,
+            "code" => $request->code,
             'cat_id' => $request->cat_id,
             'dep_id' => $request->dep_id,
             'sec_id' => $request->sec_id,
@@ -112,6 +113,7 @@ class BookController extends Controller
             'edition' => $request->edition,
             'translator' => $request->translator,
             'isbn' => $request->isbn,
+            "code" => $request->code,
             'description' => $request->description,
             'cat_id' => $request->cat_id,
             'dep_id' => $request->dep_id,
@@ -121,8 +123,11 @@ class BookController extends Controller
         ]);
         
         if($request->hasFile('image')){
-            if(Storage::disk('public')->exists($book->image->image)){
-                Storage::disk('public')->delete($book->image->image);
+            $orgPath = explode("/",$book->image->image);
+            array_shift($orgPath);
+            $orgPath = implode("/",$orgPath);
+            if(Storage::disk('public')->exists($orgPath)){
+                Storage::disk('public')->delete($orgPath);
             }
             $path = $request->file('image')->store('images/books','public');
             $path = $path = "storage/" . $path; 

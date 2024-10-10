@@ -23,7 +23,10 @@ class ReserveController extends Controller
    }
 
    public function setBook(setBookRequest $request,string $id) {
-      $reserve = Reserve::findOrFail($id);
+      $reserve = Reserve::find($id);
+      if(!$reserve) {
+         return response()->json(['message'=>'Inavliad request']);
+      }
       if($reserve) {
          $reserve->status = "active";
          $reserve->save();

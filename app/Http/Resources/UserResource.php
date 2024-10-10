@@ -41,6 +41,7 @@ class UserResource extends JsonResource
                 "nin" => $this->userable->nin,
                 "nic" => $this->userable->nic,
                 "phone" => $this->userable->phone,
+                "image" => $this->userable->image->image,
                 "current_residence" => $this->userable->current_residence,
                 "original_residence" => $this->userable->original_residence,
                 "faculty" => Department::find($this->userable->fac_id)->first()->name,

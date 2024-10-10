@@ -36,6 +36,16 @@ class UserController extends Controller
             $unactivatedUser->save();
             return UserResource::make($unactivatedUser);
         }
-        return response()->json(['message','Item not found'],Response::HTTP_NOT_FOUND);
+        return response()->json(['message','User not found'],Response::HTTP_NOT_FOUND);
+    }
+
+    public function getActivatedUsers(Request $request) {
+        $request->merge(['getUnactivated_user_detail' => 'yes']);
+        $users = User::where('status','active')->get();
+        if($users) {
+            return UserResource::collection($users);
+        }else {
+            return response()->json(['message'=>'No users activated yet']);
+        }
     }
 }

@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reserves', function (Blueprint $table) {
+        Schema::create('fines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained('books','id')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users','id')->onDelete('cascade');
-            $table->string('user_type');
-            $table->enum('status',['active','inactive'])->default('inactive');
+            $table->foreignId('user_id')->constrained('users','id');
+            $table->foreignId('book_id')->constrained('books','id');
+            $table->integer('amount');
+            $table->date('issue_date');
+            $table->enum('paid',['yes','no'])->default('no');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reserves');
+        Schema::dropIfExists('fines');
     }
 };

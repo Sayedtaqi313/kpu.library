@@ -39,7 +39,11 @@ class BookResource extends JsonResource
             'title' => $this->title,
             'author' => $this->author,
             'publisher' => $this->publisher,
-            'image_url' => asset($this->image->image)
+            'image_url' => asset($this->image->image),
+            'publicationYear' => $this->publicationYear,
+            'lang' => $this->lang,
+            'edition' => $this->edition,
+            'translator' => $this->translator,
         ];
     }
 
