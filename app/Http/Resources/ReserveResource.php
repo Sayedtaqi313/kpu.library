@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
+
 class ReserveResource extends JsonResource
 {
     /**
@@ -14,7 +15,7 @@ class ReserveResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if($request->has('get_inactive_users')){
+        if ($request->has('get_inactive_users')) {
             return [
                 'firstName' => $this->user->userable->firstName,
                 'total_book' => $this->book->stock->total,
@@ -25,7 +26,17 @@ class ReserveResource extends JsonResource
                 'nin' => $this->user->userable->nin,
                 'book' => $this->book->title,
             ];
-        }else {
+        } else if ($request->has('get_users_got_book')) {
+            return [
+                'firstName' => $this->user->userable->firstName,
+                'user_status' => $this->user->status,
+                'nic' => $this->user->userable->nic,
+                'nin' => $this->user->userable->nin,
+                'book' => $this->book->title,
+                'book_status' => $this->book->barrow == "yes" ? "barrowable" : "reservable",
+                'return_date' => $this->duration->return_by
+            ];
+        } else {
             return [
                 'book_title' => $this->book->title,
                 'book_image' => $this->book->image->image,

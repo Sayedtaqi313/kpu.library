@@ -22,4 +22,8 @@ class Reserve extends Model
     public function book() {
         return $this->belongsTo(Book::class,'book_id');
     }
+
+    public function reserve() {
+        return $this->hasOne(Fine::class,'res_id');
+    }
 }

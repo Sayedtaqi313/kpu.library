@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\backControllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\setBookRequest;
@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Reserve;
+use App\Models\Cart;
 use Carbon\Carbon;
 class ReserveController extends Controller
 {
@@ -52,6 +53,21 @@ class ReserveController extends Controller
       $reserve = Reserve::find($id);
       return BookResource::make($reserve->book);
 
+   }
+
+   public function usersGotBook(Request $request) {
+      $request->merge(['get_users_got_book'=>'yes']);
+      $gotBooksUsers = Reserve::where('status','active')->get();
+      if(!$gotBooksUsers) {
+         return response()->json(['message' => 'No user Found yet']);
+      }
+
+      return ReserveResource::collection($gotBooksUsers);
+   }
+
+   public function userReturnBook(Request $request,Reserve $reserve) {
+      $reserve->delete();
+      return response()->json(['message'=>'User has returned book successfully']);
    }
 
 }

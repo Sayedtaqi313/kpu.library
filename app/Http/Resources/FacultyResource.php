@@ -14,7 +14,7 @@ class FacultyResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if($request->has('faculty_with_dartments')){
+        if($request->has('faculties_with_departments')){
             return [
                 'id' => $this->id,
                 'name' => $this->name,

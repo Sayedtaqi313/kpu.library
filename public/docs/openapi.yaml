@@ -1,0 +1,1665 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/documentation:
+    get:
+      summary: 'Display Swagger API page.'
+      operationId: displaySwaggerAPIPage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>L5 Swagger UI</title>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://localhost/docs/asset/swagger-ui.css?v=fd5df98cfc0e58ed507042cd86a1f1df\">\n    <link rel=\"icon\" type=\"image/png\" href=\"http://localhost/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6\" sizes=\"32x32\"/>\n    <link rel=\"icon\" type=\"image/png\" href=\"http://localhost/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384\" sizes=\"16x16\"/>\n    <style>\n    html\n    {\n        box-sizing: border-box;\n        overflow: -moz-scrollbars-vertical;\n        overflow-y: scroll;\n    }\n    *,\n    *:before,\n    *:after\n    {\n        box-sizing: inherit;\n    }\n\n    body {\n      margin:0;\n      background: #fafafa;\n    }\n    </style>\n    </head>\n\n<body >\n<div id=\"swagger-ui\"></div>\n\n<script src=\"http://localhost/docs/asset/swagger-ui-bundle.js?v=bccc97f77bdb8edc590ae3abdf83b9a7\"></script>\n<script src=\"http://localhost/docs/asset/swagger-ui-standalone-preset.js?v=861c3618a16aefc88e19a052836718e5\"></script>\n<script>\n    window.onload = function() {\n        // Build a system\n        const ui = SwaggerUIBundle({\n            dom_id: '#swagger-ui',\n            url: \"http://localhost/docs/api-docs.json\",\n            operationsSorter: null,\n            configUrl: null,\n            validatorUrl: null,\n            oauth2RedirectUrl: \"http://localhost/api/oauth2-callback\",\n\n            requestInterceptor: function(request) {\n                request.headers['X-CSRF-TOKEN'] = '';\n                return request;\n            },\n\n            presets: [\n                SwaggerUIBundle.presets.apis,\n                SwaggerUIStandalonePreset\n            ],\n\n            plugins: [\n                SwaggerUIBundle.plugins.DownloadUrl\n            ],\n\n            layout: \"StandaloneLayout\",\n            docExpansion : \"none\",\n            deepLinking: true,\n            filter: true,\n            persistAuthorization: \"false\",\n\n        })\n\n        window.ui = ui\n\n            }\n</script>\n</body>\n</html>\n"
+      tags:
+        - Endpoints
+      security: []
+  /api/oauth2-callback:
+    get:
+      summary: 'Display Oauth2 callback pages.'
+      operationId: displayOauth2CallbackPages
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "<!doctype html>\n<html lang=\"en-US\">\n<head>\n    <title>Swagger UI: OAuth2 Redirect</title>\n</head>\n<body>\n<script>\n    'use strict';\n    function run () {\n        var oauth2 = window.opener.swaggerUIRedirectOauth2;\n        var sentState = oauth2.state;\n        var redirectUrl = oauth2.redirectUrl;\n        var isValid, qp, arr;\n\n        if (/code|token|error/.test(window.location.hash)) {\n            qp = window.location.hash.substring(1).replace('?', '&');\n        } else {\n            qp = location.search.substring(1);\n        }\n\n        arr = qp.split(\"&\");\n        arr.forEach(function (v,i,_arr) { _arr[i] = '\"' + v.replace('=', '\":\"') + '\"';});\n        qp = qp ? JSON.parse('{' + arr.join() + '}',\n                function (key, value) {\n                    return key === \"\" ? value : decodeURIComponent(value);\n                }\n        ) : {};\n\n        isValid = qp.state === sentState;\n\n        if ((\n          oauth2.auth.schema.get(\"flow\") === \"accessCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorizationCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorization_code\"\n        ) && !oauth2.auth.code) {\n            if (!isValid) {\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"warning\",\n                    message: \"Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server.\"\n                });\n            }\n\n            if (qp.code) {\n                delete oauth2.state;\n                oauth2.auth.code = qp.code;\n                oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});\n            } else {\n                let oauthErrorMsg;\n                if (qp.error) {\n                    oauthErrorMsg = \"[\"+qp.error+\"]: \" +\n                        (qp.error_description ? qp.error_description+ \". \" : \"no accessCode received from the server. \") +\n                        (qp.error_uri ? \"More info: \"+qp.error_uri : \"\");\n                }\n\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"error\",\n                    message: oauthErrorMsg || \"[Authorization failed]: no accessCode received from the server.\"\n                });\n            }\n        } else {\n            oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});\n        }\n        window.close();\n    }\n\n    if (document.readyState !== 'loading') {\n        run();\n    } else {\n        document.addEventListener('DOMContentLoaded', function () {\n            run();\n        });\n    }\n</script>\n</body>\n</html>\n"
+      tags:
+        - Endpoints
+      security: []
+  /api/register:
+    post:
+      summary: ''
+      operationId: postApiRegister
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  description: 'Must be at least 5 characters. Must not be greater than 20 characters.'
+                  example: g
+                  nullable: false
+                lastName:
+                  type: string
+                  description: 'Must be at least 5 characters. Must not be greater than 20 characters.'
+                  example: cnv
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: ukonopelski@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: et
+                  nullable: false
+                phone:
+                  type: string
+                  description: ''
+                  example: quos
+                  nullable: false
+                nin:
+                  type: string
+                  description: ''
+                  example: aut
+                  nullable: false
+                nic:
+                  type: string
+                  description: ''
+                  example: quidem
+                  nullable: false
+                original_residence:
+                  type: string
+                  description: ''
+                  example: id
+                  nullable: false
+                current_residence:
+                  type: string
+                  description: ''
+                  example: enim
+                  nullable: false
+                fac_id:
+                  type: string
+                  description: ''
+                  example: voluptatibus
+                  nullable: false
+                dep_id:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                type:
+                  type: string
+                  description: ''
+                  example: student
+                  nullable: false
+                  enum:
+                    - teacher
+                    - student
+                image:
+                  type: string
+                  format: binary
+                  description: 'Must be an image. Must not be greater than 1024 kilobytes. Must be at least 256 kilobytes.'
+                  nullable: false
+              required:
+                - firstName
+                - lastName
+                - email
+                - password
+                - phone
+                - nin
+                - nic
+                - original_residence
+                - current_residence
+                - fac_id
+                - dep_id
+                - type
+                - image
+      security: []
+  /api/login:
+    post:
+      summary: ''
+      operationId: postApiLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: retha71@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: blanditiis
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/home:
+    get:
+      summary: ''
+      operationId: getApiHome
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  all_books: 0
+                  all_reservable_books: 0
+                  all_borrowable_books: 0
+                  pdf_books: 0
+                  hard_books: 0
+                  all_papers: 200
+                  all_thisis: 100
+                  all_registered_users: 0
+                  categories_num_books: []
+                  categories_with_books: []
+                properties:
+                  all_books:
+                    type: integer
+                    example: 0
+                  all_reservable_books:
+                    type: integer
+                    example: 0
+                  all_borrowable_books:
+                    type: integer
+                    example: 0
+                  pdf_books:
+                    type: integer
+                    example: 0
+                  hard_books:
+                    type: integer
+                    example: 0
+                  all_papers:
+                    type: integer
+                    example: 200
+                  all_thisis:
+                    type: integer
+                    example: 100
+                  all_registered_users:
+                    type: integer
+                    example: 0
+                  categories_num_books:
+                    type: array
+                    example: []
+                  categories_with_books:
+                    type: array
+                    example: []
+      tags:
+        - Endpoints
+      security: []
+  '/api/category/books/{category}':
+    get:
+      summary: ''
+      operationId: getApiCategoryBooksCategory
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'item not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'item not found'
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: category
+        description: ''
+        example: 17
+        required: true
+        schema:
+          type: integer
+  '/api/book/detials/{book}':
+    get:
+      summary: ''
+      operationId: getApiBookDetialsBook
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'item not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'item not found'
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: book
+        description: ''
+        example: voluptas
+        required: true
+        schema:
+          type: string
+  /api/logout:
+    post:
+      summary: ''
+      operationId: postApiLogout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/account/profile:
+    get:
+      summary: ''
+      operationId: getApiAccountProfile
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/account/profile/delete_account:
+    delete:
+      summary: ''
+      operationId: deleteApiAccountProfileDelete_account
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/cart/books:
+    get:
+      summary: ''
+      operationId: getApiCartBooks
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/cart/book/{book}':
+    post:
+      summary: ''
+      operationId: postApiCartBookBook
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiCartBookBook
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: book
+        description: 'The book.'
+        example: 11
+        required: true
+        schema:
+          type: integer
+  '/api/reserve/book/{book}':
+    post:
+      summary: ''
+      operationId: postApiReserveBookBook
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: book
+        description: 'The book.'
+        example: 15
+        required: true
+        schema:
+          type: integer
+  /api/admin/login:
+    post:
+      summary: ''
+      operationId: postApiAdminLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: keebler.remington@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: 'XR#\xs"U''c#F*(o6-.3Q'
+                  nullable: false
+                type:
+                  type: string
+                  description: ''
+                  example: assistant
+                  nullable: false
+                  enum:
+                    - assistant
+                    - employee
+              required:
+                - email
+                - password
+                - type
+      security: []
+  /api/dashboard:
+    get:
+      summary: ''
+      operationId: getApiDashboard
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/dashboard/admin/account/{admin_id}':
+    post:
+      summary: ''
+      operationId: postApiDashboardAdminAccountAdmin_id
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: amet
+                  nullable: false
+                email:
+                  type: string
+                  description: ''
+                  example: temporibus
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: non
+                  nullable: false
+              required:
+                - name
+                - email
+                - password
+      security: []
+    parameters:
+      -
+        in: path
+        name: admin_id
+        description: 'The ID of the admin.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/dashboard/admin/logout:
+    post:
+      summary: ''
+      operationId: postApiDashboardAdminLogout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/dashboard/faculties:
+    get:
+      summary: ''
+      operationId: getApiDashboardFaculties
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDashboardFaculties
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: soluta
+                  nullable: false
+              required:
+                - name
+      security: []
+  '/api/dashboard/faculties/{id}':
+    put:
+      summary: ''
+      operationId: putApiDashboardFacultiesId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: adipisci
+                  nullable: false
+              required:
+                - name
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDashboardFacultiesId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the faculty.'
+        example: vel
+        required: true
+        schema:
+          type: string
+  /api/dashboard/departments:
+    get:
+      summary: ''
+      operationId: getApiDashboardDepartments
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDashboardDepartments
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: porro
+                  nullable: false
+                fac_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the faculties table.'
+                  example: dolorum
+                  nullable: false
+              required:
+                - name
+                - fac_id
+      security: []
+  '/api/dashboard/departments/{id}':
+    get:
+      summary: ''
+      operationId: getApiDashboardDepartmentsId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDashboardDepartmentsId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: soluta
+                  nullable: false
+                fac_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the faculties table.'
+                  example: sunt
+                  nullable: false
+              required:
+                - name
+                - fac_id
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDashboardDepartmentsId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the department.'
+        example: quia
+        required: true
+        schema:
+          type: string
+  /api/dashboard/categories:
+    get:
+      summary: ''
+      operationId: getApiDashboardCategories
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDashboardCategories
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: doloremque
+                  nullable: false
+              required:
+                - name
+      security: []
+  '/api/dashboard/categories/{id}':
+    get:
+      summary: ''
+      operationId: getApiDashboardCategoriesId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDashboardCategoriesId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: ut
+                  nullable: false
+              required:
+                - name
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDashboardCategoriesId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the category.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/dashboard/sections:
+    get:
+      summary: ''
+      operationId: getApiDashboardSections
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDashboardSections
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                section:
+                  type: string
+                  description: ''
+                  example: sed
+                  nullable: false
+              required:
+                - section
+      security: []
+  '/api/dashboard/sections/{id}':
+    get:
+      summary: ''
+      operationId: getApiDashboardSectionsId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDashboardSectionsId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                section:
+                  type: string
+                  description: ''
+                  example: nihil
+                  nullable: false
+              required:
+                - section
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDashboardSectionsId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the section.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/dashboard/books:
+    get:
+      summary: ''
+      operationId: getApiDashboardBooks
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDashboardBooks
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: natus
+                  nullable: false
+                author:
+                  type: string
+                  description: ''
+                  example: explicabo
+                  nullable: false
+                publisher:
+                  type: string
+                  description: ''
+                  example: reiciendis
+                  nullable: false
+                publicationYear:
+                  type: string
+                  description: ''
+                  example: incidunt
+                  nullable: false
+                lang:
+                  type: string
+                  description: ''
+                  example: odit
+                  nullable: false
+                edition:
+                  type: string
+                  description: ''
+                  example: quisquam
+                  nullable: false
+                translator:
+                  type: string
+                  description: ''
+                  example: qui
+                  nullable: false
+                isbn:
+                  type: string
+                  description: ''
+                  example: nam
+                  nullable: false
+                description:
+                  type: string
+                  description: ''
+                  example: null
+                  nullable: true
+                code:
+                  type: string
+                  description: ''
+                  example: fugit
+                  nullable: false
+                cat_id:
+                  type: string
+                  description: ''
+                  example: consequatur
+                  nullable: false
+                dep_id:
+                  type: string
+                  description: ''
+                  example: qui
+                  nullable: false
+                sec_id:
+                  type: string
+                  description: ''
+                  example: cumque
+                  nullable: false
+                format:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                borrow:
+                  type: string
+                  description: ''
+                  example: deserunt
+                  nullable: false
+                total:
+                  type: string
+                  description: ''
+                  example: laboriosam
+                  nullable: false
+                shelf:
+                  type: string
+                  description: ''
+                  example: eos
+                  nullable: false
+                image:
+                  type: string
+                  format: binary
+                  description: 'Must be an image. Must not be greater than 1024 kilobytes.'
+                  nullable: false
+              required:
+                - title
+                - author
+                - publisher
+                - publicationYear
+                - lang
+                - edition
+                - translator
+                - isbn
+                - code
+                - cat_id
+                - dep_id
+                - sec_id
+                - format
+                - borrow
+                - total
+                - shelf
+                - image
+      security: []
+  '/api/dashboard/books/{id}':
+    get:
+      summary: ''
+      operationId: getApiDashboardBooksId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDashboardBooksId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: voluptatibus
+                  nullable: false
+                author:
+                  type: string
+                  description: ''
+                  example: officia
+                  nullable: false
+                publisher:
+                  type: string
+                  description: ''
+                  example: expedita
+                  nullable: false
+                publicationYear:
+                  type: string
+                  description: ''
+                  example: numquam
+                  nullable: false
+                lang:
+                  type: string
+                  description: ''
+                  example: aperiam
+                  nullable: false
+                edition:
+                  type: string
+                  description: ''
+                  example: libero
+                  nullable: false
+                translator:
+                  type: string
+                  description: ''
+                  example: aut
+                  nullable: false
+                isbn:
+                  type: string
+                  description: ''
+                  example: eius
+                  nullable: false
+                description:
+                  type: string
+                  description: ''
+                  example: null
+                  nullable: true
+                cat_id:
+                  type: string
+                  description: ''
+                  example: sit
+                  nullable: false
+                dep_id:
+                  type: string
+                  description: ''
+                  example: odio
+                  nullable: false
+                sec_id:
+                  type: string
+                  description: ''
+                  example: est
+                  nullable: false
+                format:
+                  type: string
+                  description: ''
+                  example: labore
+                  nullable: false
+                barrow:
+                  type: string
+                  description: ''
+                  example: enim
+                  nullable: false
+              required:
+                - title
+                - author
+                - publisher
+                - publicationYear
+                - lang
+                - edition
+                - translator
+                - isbn
+                - cat_id
+                - dep_id
+                - sec_id
+                - format
+                - barrow
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDashboardBooksId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the book.'
+        example: 17
+        required: true
+        schema:
+          type: integer
+  /api/dashboard/users/create:
+    post:
+      summary: ''
+      operationId: postApiDashboardUsersCreate
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  description: 'Must be at least 5 characters. Must not be greater than 20 characters.'
+                  example: nn
+                  nullable: false
+                lastName:
+                  type: string
+                  description: 'Must be at least 5 characters. Must not be greater than 20 characters.'
+                  example: ftken
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: ekovacek@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: laborum
+                  nullable: false
+                phone:
+                  type: string
+                  description: ''
+                  example: omnis
+                  nullable: false
+                nin:
+                  type: string
+                  description: ''
+                  example: culpa
+                  nullable: false
+                nic:
+                  type: string
+                  description: ''
+                  example: alias
+                  nullable: false
+                original_residence:
+                  type: string
+                  description: ''
+                  example: autem
+                  nullable: false
+                current_residence:
+                  type: string
+                  description: ''
+                  example: rem
+                  nullable: false
+                fac_id:
+                  type: string
+                  description: ''
+                  example: quam
+                  nullable: false
+                dep_id:
+                  type: string
+                  description: ''
+                  example: beatae
+                  nullable: false
+                type:
+                  type: string
+                  description: ''
+                  example: student
+                  nullable: false
+                  enum:
+                    - teacher
+                    - student
+                image:
+                  type: string
+                  format: binary
+                  description: 'Must be an image. Must not be greater than 1024 kilobytes. Must be at least 256 kilobytes.'
+                  nullable: false
+              required:
+                - firstName
+                - lastName
+                - email
+                - password
+                - phone
+                - nin
+                - nic
+                - original_residence
+                - current_residence
+                - fac_id
+                - dep_id
+                - type
+                - image
+      security: []
+  '/api/dashboard/users/destroy/{user_id}':
+    delete:
+      summary: ''
+      operationId: deleteApiDashboardUsersDestroyUser_id
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: user_id
+        description: 'The ID of the user.'
+        example: 2
+        required: true
+        schema:
+          type: integer
+  /api/dashboard/users/unactivated_users:
+    get:
+      summary: ''
+      operationId: getApiDashboardUsersUnactivated_users
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/dashboard/users/unactivated_users/{user}':
+    get:
+      summary: ''
+      operationId: getApiDashboardUsersUnactivated_usersUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: user
+        description: ''
+        example: numquam
+        required: true
+        schema:
+          type: string
+  '/api/dashboard/users/activate_user/{user}':
+    post:
+      summary: ''
+      operationId: postApiDashboardUsersActivate_userUser
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: user
+        description: ''
+        example: debitis
+        required: true
+        schema:
+          type: string
+  /api/dashboard/users/activated_users:
+    get:
+      summary: ''
+      operationId: getApiDashboardUsersActivated_users
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/dashboard/reserves/inactive/users:
+    get:
+      summary: ''
+      operationId: getApiDashboardReservesInactiveUsers
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/dashboard/reserves/inactive/users_detail/{reserve}':
+    get:
+      summary: ''
+      operationId: getApiDashboardReservesInactiveUsers_detailReserve
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: reserve
+        description: ''
+        example: et
+        required: true
+        schema:
+          type: string
+  '/api/dashboard/reserves/inactive/book_detail/{reserve}':
+    get:
+      summary: ''
+      operationId: getApiDashboardReservesInactiveBook_detailReserve
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: reserve
+        description: ''
+        example: doloribus
+        required: true
+        schema:
+          type: string
+  '/api/dashboard/reserves/active/{reserve}':
+    post:
+      summary: ''
+      operationId: postApiDashboardReservesActiveReserve
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                return_by:
+                  type: string
+                  description: ''
+                  example: et
+                  nullable: false
+              required:
+                - return_by
+      security: []
+    parameters:
+      -
+        in: path
+        name: reserve
+        description: ''
+        example: culpa
+        required: true
+        schema:
+          type: string
+  /api/dashboard/reserves/active/users:
+    get:
+      summary: ''
+      operationId: getApiDashboardReservesActiveUsers
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/dashboard/reserves/return/book/{reserve_id}':
+    post:
+      summary: ''
+      operationId: postApiDashboardReservesReturnBookReserve_id
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: reserve_id
+        description: 'The ID of the reserve.'
+        example: 18
+        required: true
+        schema:
+          type: integer
+  /api/dashboard/fines/unpaid/users:
+    get:
+      summary: ''
+      operationId: getApiDashboardFinesUnpaidUsers
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/dashboard/fines/pay/{fine_id}':
+    post:
+      summary: ''
+      operationId: postApiDashboardFinesPayFine_id
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: fine_id
+        description: 'The ID of the fine.'
+        example: 18
+        required: true
+        schema:
+          type: integer
+  /api/dashboard/fines/paid/users:
+    get:
+      summary: ''
+      operationId: getApiDashboardFinesPaidUsers
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''

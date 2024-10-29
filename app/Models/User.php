@@ -47,4 +47,8 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class,'user_id');
     }
 
+    public function fines() {
+        return $this->hasMany(Fine::class,'user_id');
+    }
+
 }

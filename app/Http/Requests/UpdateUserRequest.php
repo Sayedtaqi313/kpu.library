@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class RegisterRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,11 @@ class RegisterRequest extends FormRequest
         return [
             "firstName" => "required|min:5|max:20",
             "lastName" => "required|min:5|max:20",
-            "email" => "required|email|unique:users",
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->user->id),
+            ],
             "password" => "required",
             "phone" => "required",
             "nin" => "required",
@@ -33,8 +38,8 @@ class RegisterRequest extends FormRequest
             "current_residence" => "required",
             "fac_id" => "required",
             "dep_id" => "required",
+            "status" => "required",
             "type" => "required|in:teacher,student",
-            "image" => "required|image|max:1024|min:256"
         ];
     }
 }

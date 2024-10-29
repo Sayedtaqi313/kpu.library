@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\frontControllers;
 
 use App\Http\Resources\BookResource;
 use App\Http\Resources\CartResource;

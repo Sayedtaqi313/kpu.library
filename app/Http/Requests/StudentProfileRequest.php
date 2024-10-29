@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class StudentProfileRequest extends FormRequest
+
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +23,11 @@ class StudentProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => "required|email|unique:users,email,except,id",
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->user->id),
+            ],
             "nin" => "required",
             "nic" => "required",
             "current_residence" => "required",

@@ -36,7 +36,7 @@ class StoreBookRequest extends FormRequest
             "dep_id" => "required",
             "sec_id" => "required",
             "format" => "required",
-            "barrow" => "required",
+            "borrow" => "required",
             "total" => "required",
             "shelf" => "required",
             "image" => "required|image|mimes:png,jpg,jpeg|max:1024"

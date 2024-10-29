@@ -9,4 +9,10 @@ class Fine extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id','book_id','amount','issue_date','paid'];
+    public function user() {
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function book() {
+        return $this->belongsTo(Book::class,'book_id');
+    }
 }

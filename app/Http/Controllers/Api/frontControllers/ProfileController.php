@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\frontControllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentProfileRequest;
@@ -11,10 +11,11 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Department;
 use App\Models\Faculty;
+use App\Models\Fine;
 
 class ProfileController extends Controller
 {
-   public function profile(Request $request,) {
+   public function showProfile(Request $request,) {
         $user =  auth()->user();
         if($user->type == "student") {
             return StudentProfileResource::make($user);
@@ -74,6 +75,10 @@ class ProfileController extends Controller
 
    public function deleteAcount() {
     $user = auth()->user();
+    $fine = Fine::where('user_id',$user->id)->where('paid','no')->first();
+    if($fine) {
+        return response()->json(['message'=>'First you have to pay your fine']);
+    }
        $user->tokens()->delete();
        $user->userable->image()->delete();
        $user->userable()->delete();

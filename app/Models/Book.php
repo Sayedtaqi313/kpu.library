@@ -26,7 +26,7 @@ class Book extends Model
         'dep_id',
         'sec_id',
         'format',
-        'barrow',
+        'borrow',
         'code',
     ];
 
@@ -52,6 +52,10 @@ class Book extends Model
 
     public function carts() {
         return $this->hasOne(Cart::class,'book_id','id');
+    }
+
+    public function fines() {
+        return $this->hasMany(Book::class,'book_id');
     }
 
     

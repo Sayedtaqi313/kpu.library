@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\backControllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FacultyRequest;
@@ -32,11 +32,6 @@ class FacultyController extends Controller
         return FacultyResource::make($faculty);
     }
 
-  
-    public function show(string $id)
-    {
-        
-    }
 
    
     public function update(FacultyRequest $request, string $id)

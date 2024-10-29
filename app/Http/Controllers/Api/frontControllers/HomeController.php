@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\frontControllers;
 use App\Http\Resources\FacultyResource;
 use App\Models\Department;
 use Illuminate\Support\Facades\Gate;
@@ -32,11 +32,6 @@ use Hash;
 class HomeController extends Controller
 {
 
-        public function getFacultyWithDepartments(Request $request) {
-            $request->merge(['faculty_with_dartments'=>'yes']);
-            $faculties = Faculty::all();
-            return FacultyResource::collection($faculties);
-        }
        /**
         * @OA\Post(
         * path="/api/register",
@@ -103,7 +98,7 @@ class HomeController extends Controller
                 "nin" => $request->nin,
                 "nic" => $request->nic,
                 "current_residence" => $request->current_residence,
-                "original_residence" => "kabul",
+                "original_residence" => $request->original_residence,
                 "fac_id" => $request->fac_id,
                 "dep_id" => $request->dep_id,
             ]);
@@ -176,14 +171,33 @@ class HomeController extends Controller
 
     public function logout()
     {
-       return auth()->user()->tokens()->delete();
+        auth()->user()->tokens()->delete();
        return response()->noContent();
     }
 
     public function home(Request $request) {
         $request->merge(['category_with_books' => 'yes']);
         $categories = Category::all();
-        return CategoryResource::collection($categories);
+        $categories_num_books = Category::select('name')->withCount('books')->get();
+        $allBooks = Book::all()->count();
+        $hardBooks = Book::where('format','hard')->count();
+        $pdfBooks = Book::where('format','pdf')->count();
+        $reservableBooks = Book::where('borrow','no')->count();
+        $borrowableBooks = Book::where('borrow','yes')->count();
+        $users = User::all()->count();
+        return response()->json(
+            [   'all_books' => $allBooks,
+                'all_reservable_books' => $reservableBooks,
+                'all_borrowable_books' => $borrowableBooks,
+                'pdf_books' => $pdfBooks,
+                'hard_books' => $hardBooks,
+                'all_papers' => 200,
+                'all_thisis' => 100,
+                'all_registered_users' => $users,
+                'categories_num_books' => $categories_num_books,
+                'categories_with_books' => CategoryResource::collection($categories), 
+            ]
+        );
     }
 
     public function booksByCategoryId(Request $request , string $id) {

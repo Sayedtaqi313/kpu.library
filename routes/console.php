@@ -6,7 +6,7 @@ use App\Models\Role;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
-use App\Models\Proifle;
+use App\Models\Book;
 use Carbon\Carbon;
 
 Artisan::command('inspire', function () {
@@ -14,11 +14,12 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::call(function () {
-   
-    $durations = Duration::where('time','=','notFinished')->get();
-    foreach($durations as $duration) {
+
+    $durations = Duration::where('time', '=', 'notFinished')->get();
+
+    foreach ($durations as $duration) {
         $finishedTime = Carbon::parse($duration->return_by);
-        if($finishedTime->isSameDay(Carbon::now())){
+        if ($finishedTime->isSameDay(Carbon::now())) {
             $duration->time = "finished";
             $duration->save();
             Fine::create([
@@ -28,10 +29,10 @@ Schedule::call(function () {
                 'issue_date' => Carbon::now()->format('Y-m-d'),
                 'paid' => 'no'
             ]);
-       }
-     }
+        }
+    }
 
 
 
-    
+
 })->everyTenSeconds();
