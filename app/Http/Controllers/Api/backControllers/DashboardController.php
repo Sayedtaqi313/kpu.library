@@ -18,5 +18,5 @@ class DashboardController extends Controller
         return FacultyResource::collection($faculties);
     }
 
-    
+
 }

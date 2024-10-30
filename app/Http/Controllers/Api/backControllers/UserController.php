@@ -26,10 +26,10 @@ class UserController extends Controller
         $faculty = Faculty::find($request->fac_id);
         $department = Department::find($request->dep_id);
         if (!$faculty) {
-            return response()->json(['message' => "Faculty not found"], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => "فاکولته وجودندارد"], Response::HTTP_NOT_FOUND);
         }
         if (!$department) {
-            return response()->json(['message' => "Department not found"], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => "دیپارتمنت وجود ندراد"], Response::HTTP_NOT_FOUND);
         }
 
         if (strtolower($request->type) == "teacher") {
@@ -85,7 +85,7 @@ class UserController extends Controller
                     "type" => $request->type,
                 ]);
             } else {
-                return response()->json(['message' => 'Type is incorrect'], 400);
+                return response()->json(['message' => 'تایپ نادرست می باشد'], 400);
             }
 
             return response()->json(['user' => UserResource::make($user)]);
@@ -98,10 +98,10 @@ class UserController extends Controller
         $faculty = Faculty::find($request->fac_id)->first();
         $department = Department::find($request->dep_id)->first();
         if (!$faculty) {
-            return response()->json(['message' => 'Faculty not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'فاکولته وجود ندارد'], Response::HTTP_NOT_FOUND);
         }
         if (!$department) {
-            return response()->json(['message' => 'Department not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'دیپارتمنت وجود ندارد'], Response::HTTP_NOT_FOUND);
         }
 
         if ($request->type == "student" && $user->type == "student") {
@@ -129,7 +129,7 @@ class UserController extends Controller
             $user->userable->fac_id = $request->fac_id;
             $user->userable->dep_id = $request->dep_id;
             $user->userable->save();
-            return response()->json(['message' => 'User updated successfully']);
+            return response()->json(['message' => 'کاربر موفقانه بروز رسانی شد']);
 
         } else if ($request->type == "teacher" && $user->type == "student") {
             if ($request->hasFile('image')) {
@@ -170,7 +170,7 @@ class UserController extends Controller
                     'image' => $path
                 ]);
             }
-            return response()->json(['message' => 'User updated successfully']);
+            return response()->json(['message' => 'کاربر موفقانه بروز رسانی شد']);
         } else if ($request->type == "teacher" && $user->type == "teacher") {
 
             if ($request->hasFile('image')) {
@@ -197,7 +197,7 @@ class UserController extends Controller
             $user->userable->fac_id = $request->fac_id;
             $user->userable->dep_id = $request->dep_id;
             $user->userable->save();
-            return response()->json(['message' => 'User updated successfully']);
+            return response()->json(['message' => 'کربر موفقانه بروز رسانی شد']);
 
         } else if ($request->type == "student" && $user->type == "teacher") {
             if ($request->hasFile('image')) {
@@ -240,7 +240,7 @@ class UserController extends Controller
                 ]);
             }
 
-            return response()->json(['message' => 'User updated successfully']);
+            return response()->json(['message' => 'کاربر موفقانه بروزرسانی شد']);
         }
 
 
@@ -259,7 +259,7 @@ class UserController extends Controller
         $user->userable->image()->delete();
         $user->userable()->delete();
         $user->delete();
-        return response()->json(['message' => "User deleted successfully"], Response::HTTP_NO_CONTENT);
+        return response()->json(['message' => "کابر موففانه پاک شد"], Response::HTTP_NO_CONTENT);
     }
     public function getUnativatedUsers(Request $request)
     {
@@ -278,19 +278,19 @@ class UserController extends Controller
             return UserResource::make($unactivatedUser);
         }
 
-        return response()->json(['message', 'No user found'], Response::HTTP_NOT_FOUND);
+        return response()->json(['message' => 'کاربر پیدا نشد'], Response::HTTP_NOT_FOUND);
     }
 
-    public function ativatedUserById(Request $request, string $id)
+    public function ativateUserById(Request $request, string $id)
     {
         $request->merge(['getUnactivated_user_detail' => 'yes']);
         $unactivatedUser = User::where('id', '=', $id)->where('status', '=', 'inactive')->first();
         if ($unactivatedUser) {
             $unactivatedUser->status = "active";
             $unactivatedUser->save();
-            return UserResource::make($unactivatedUser);
+            return response()->json(['message' => 'کاربر موفقانه فعال شد', 'data' => UserResource::make($unactivatedUser)]);
         }
-        return response()->json(['message', 'User not found'], Response::HTTP_NOT_FOUND);
+        return response()->json(['message' => 'کاربر پیدا نشد'], Response::HTTP_NOT_FOUND);
     }
 
     public function getActivatedUsers(Request $request)
@@ -300,7 +300,7 @@ class UserController extends Controller
         if ($users) {
             return UserResource::collection($users);
         } else {
-            return response()->json(['message' => 'No users activated yet']);
+            return response()->json(['message' => 'کاربر فعال وجود ندارد']);
         }
     }
 }

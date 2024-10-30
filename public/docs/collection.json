@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "b13c8321-bf1b-4c28-8039-108b464be686",
+        "_postman_id": "40203623-3868-4f09-9473-e219146f6927",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -140,73 +140,73 @@
                             "formdata": [
                                 {
                                     "key": "firstName",
-                                    "value": "g",
+                                    "value": "fj",
                                     "type": "text",
                                     "description": "Must be at least 5 characters. Must not be greater than 20 characters."
                                 },
                                 {
                                     "key": "lastName",
-                                    "value": "cnv",
+                                    "value": "ksrq",
                                     "type": "text",
                                     "description": "Must be at least 5 characters. Must not be greater than 20 characters."
                                 },
                                 {
                                     "key": "email",
-                                    "value": "ukonopelski@example.com",
+                                    "value": "kadin.gutkowski@example.com",
                                     "type": "text",
                                     "description": "Must be a valid email address."
                                 },
                                 {
                                     "key": "password",
-                                    "value": "et",
+                                    "value": "quaerat",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "phone",
-                                    "value": "quos",
+                                    "value": "consequatur",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "nin",
-                                    "value": "aut",
+                                    "value": "mollitia",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "nic",
-                                    "value": "quidem",
+                                    "value": "ipsa",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "original_residence",
-                                    "value": "id",
+                                    "value": "et",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "current_residence",
-                                    "value": "enim",
+                                    "value": "et",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "fac_id",
-                                    "value": "voluptatibus",
+                                    "value": "et",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "dep_id",
-                                    "value": "architecto",
+                                    "value": "eos",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "type",
-                                    "value": "student",
+                                    "value": "teacher",
                                     "type": "text",
                                     "description": ""
                                 },
@@ -246,7 +246,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"retha71@example.com\",\"password\":\"blanditiis\"}"
+                            "raw": "{\"email\":\"destini39@example.net\",\"password\":\"praesentium\"}"
                         },
                         "description": "",
                         "auth": {
@@ -304,18 +304,18 @@
                     ]
                 },
                 {
-                    "name": "GET api\/category\/books\/{category}",
+                    "name": "GET api\/categories\/books\/{category}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/category\/books\/:category",
+                            "path": "api\/categories\/books\/:category",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/category\/books\/:category",
+                            "raw": "{{baseUrl}}\/api\/categories\/books\/:category",
                             "variable": [
                                 {
                                     "id": "category",
                                     "key": "category",
-                                    "value": "17",
+                                    "value": "4",
                                     "description": ""
                                 }
                             ]
@@ -360,18 +360,18 @@
                     ]
                 },
                 {
-                    "name": "GET api\/book\/detials\/{book}",
+                    "name": "GET api\/books\/detials\/{book}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/book\/detials\/:book",
+                            "path": "api\/books\/detials\/:book",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/book\/detials\/:book",
+                            "raw": "{{baseUrl}}\/api\/books\/detials\/:book",
                             "variable": [
                                 {
                                     "id": "book",
                                     "key": "book",
-                                    "value": "voluptas",
+                                    "value": "minus",
                                     "description": ""
                                 }
                             ]
@@ -568,13 +568,13 @@
                     ]
                 },
                 {
-                    "name": "POST api\/cart\/book\/{book}",
+                    "name": "POST api\/cart\/books\/{book}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/cart\/book\/:book",
+                            "path": "api\/cart\/books\/:book",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/cart\/book\/:book",
+                            "raw": "{{baseUrl}}\/api\/cart\/books\/:book",
                             "variable": [
                                 {
                                     "id": "book",
@@ -604,18 +604,18 @@
                     "response": []
                 },
                 {
-                    "name": "DELETE api\/cart\/book\/{book}",
+                    "name": "DELETE api\/cart\/books\/{book}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/cart\/book\/:book",
+                            "path": "api\/cart\/books\/:book",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/cart\/book\/:book",
+                            "raw": "{{baseUrl}}\/api\/cart\/books\/:book",
                             "variable": [
                                 {
                                     "id": "book",
                                     "key": "book",
-                                    "value": "14",
+                                    "value": "3",
                                     "description": "The book."
                                 }
                             ]
@@ -640,18 +640,18 @@
                     "response": []
                 },
                 {
-                    "name": "POST api\/reserve\/book\/{book}",
+                    "name": "POST api\/reserve\/books\/{book}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/reserve\/book\/:book",
+                            "path": "api\/reserve\/books\/:book",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/reserve\/book\/:book",
+                            "raw": "{{baseUrl}}\/api\/reserve\/books\/:book",
                             "variable": [
                                 {
                                     "id": "book",
                                     "key": "book",
-                                    "value": "15",
+                                    "value": "5",
                                     "description": "The book."
                                 }
                             ]
@@ -697,7 +697,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"keebler.remington@example.net\",\"password\":\"XR#\\\\xs\\\"U'c#F*(o6-.3Q\",\"type\":\"assistant\"}"
+                            "raw": "{\"email\":\"ffisher@example.org\",\"password\":\"lE}`zCAIL~\\\\s9f@^BH\",\"type\":\"employee\"}"
                         },
                         "description": "",
                         "auth": {
@@ -755,13 +755,13 @@
                     ]
                 },
                 {
-                    "name": "POST api\/dashboard\/admin\/account\/{admin_id}",
+                    "name": "POST api\/dashboard\/admin\/account\/update\/{admin_id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/dashboard\/admin\/account\/:admin_id",
+                            "path": "api\/dashboard\/admin\/account\/update\/:admin_id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/dashboard\/admin\/account\/:admin_id",
+                            "raw": "{{baseUrl}}\/api\/dashboard\/admin\/account\/update\/:admin_id",
                             "variable": [
                                 {
                                     "id": "admin_id",
@@ -784,7 +784,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"amet\",\"email\":\"temporibus\",\"password\":\"non\"}"
+                            "raw": "{\"name\":\"quis\",\"email\":\"deserunt\",\"password\":\"non\"}"
                         },
                         "description": "",
                         "auth": {
@@ -891,7 +891,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"soluta\"}"
+                            "raw": "{\"name\":\"voluptatem\"}"
                         },
                         "description": "",
                         "auth": {
@@ -912,7 +912,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "vel",
+                                    "value": "voluptatem",
                                     "description": "The ID of the faculty."
                                 }
                             ]
@@ -930,7 +930,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"adipisci\"}"
+                            "raw": "{\"name\":\"quaerat\"}"
                         },
                         "description": "",
                         "auth": {
@@ -951,7 +951,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "nihil",
+                                    "value": "voluptatibus",
                                     "description": "The ID of the faculty."
                                 }
                             ]
@@ -1045,7 +1045,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"porro\",\"fac_id\":\"dolorum\"}"
+                            "raw": "{\"name\":\"numquam\",\"fac_id\":\"optio\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1066,7 +1066,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quia",
+                                    "value": "quam",
                                     "description": "The ID of the department."
                                 }
                             ]
@@ -1122,7 +1122,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "magnam",
+                                    "value": "optio",
                                     "description": "The ID of the department."
                                 }
                             ]
@@ -1140,7 +1140,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"soluta\",\"fac_id\":\"sunt\"}"
+                            "raw": "{\"name\":\"iste\",\"fac_id\":\"et\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1161,7 +1161,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "tenetur",
+                                    "value": "perferendis",
                                     "description": "The ID of the department."
                                 }
                             ]
@@ -1255,7 +1255,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"doloremque\"}"
+                            "raw": "{\"name\":\"nemo\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1276,7 +1276,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "11",
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -1332,7 +1332,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "13",
+                                    "value": "12",
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -1350,7 +1350,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"ut\"}"
+                            "raw": "{\"name\":\"qui\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1371,7 +1371,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "19",
+                                    "value": "1",
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -1465,7 +1465,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"section\":\"sed\"}"
+                            "raw": "{\"section\":\"quia\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1486,7 +1486,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "architecto",
+                                    "value": "est",
                                     "description": "The ID of the section."
                                 }
                             ]
@@ -1542,7 +1542,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "14",
+                                    "value": "2",
                                     "description": "The ID of the section."
                                 }
                             ]
@@ -1560,7 +1560,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"section\":\"nihil\"}"
+                            "raw": "{\"section\":\"rerum\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1581,7 +1581,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "8",
+                                    "value": "17",
                                     "description": "The ID of the section."
                                 }
                             ]
@@ -1678,61 +1678,61 @@
                             "formdata": [
                                 {
                                     "key": "title",
-                                    "value": "natus",
+                                    "value": "aut",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "author",
-                                    "value": "explicabo",
+                                    "value": "et",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "publisher",
-                                    "value": "reiciendis",
+                                    "value": "fuga",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "publicationYear",
-                                    "value": "incidunt",
+                                    "value": "dolorum",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "lang",
-                                    "value": "odit",
+                                    "value": "et",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "edition",
-                                    "value": "quisquam",
+                                    "value": "aut",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "translator",
-                                    "value": "qui",
+                                    "value": "reiciendis",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "isbn",
-                                    "value": "nam",
+                                    "value": "minus",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "code",
-                                    "value": "fugit",
+                                    "value": "facilis",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "cat_id",
-                                    "value": "consequatur",
+                                    "value": "est",
                                     "type": "text",
                                     "description": ""
                                 },
@@ -1744,31 +1744,31 @@
                                 },
                                 {
                                     "key": "sec_id",
-                                    "value": "cumque",
+                                    "value": "et",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "format",
-                                    "value": "architecto",
+                                    "value": "nostrum",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "borrow",
-                                    "value": "deserunt",
+                                    "value": "recusandae",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "total",
-                                    "value": "laboriosam",
+                                    "value": "animi",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "shelf",
-                                    "value": "eos",
+                                    "value": "rerum",
                                     "type": "text",
                                     "description": ""
                                 },
@@ -1798,7 +1798,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "17",
+                                    "value": "6",
                                     "description": "The ID of the book."
                                 }
                             ]
@@ -1854,7 +1854,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "6",
+                                    "value": "15",
                                     "description": "The ID of the book."
                                 }
                             ]
@@ -1872,7 +1872,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"title\":\"voluptatibus\",\"author\":\"officia\",\"publisher\":\"expedita\",\"publicationYear\":\"numquam\",\"lang\":\"aperiam\",\"edition\":\"libero\",\"translator\":\"aut\",\"isbn\":\"eius\",\"cat_id\":\"sit\",\"dep_id\":\"odio\",\"sec_id\":\"est\",\"format\":\"labore\",\"barrow\":\"enim\"}"
+                            "raw": "{\"title\":\"eaque\",\"author\":\"sit\",\"publisher\":\"quo\",\"publicationYear\":\"porro\",\"lang\":\"qui\",\"edition\":\"in\",\"translator\":\"ex\",\"isbn\":\"atque\",\"cat_id\":\"et\",\"dep_id\":\"dolorem\",\"sec_id\":\"qui\",\"format\":\"amet\",\"barrow\":\"voluptatem\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1893,7 +1893,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "6",
+                                    "value": "1",
                                     "description": "The ID of the book."
                                 }
                             ]
@@ -1942,73 +1942,73 @@
                             "formdata": [
                                 {
                                     "key": "firstName",
-                                    "value": "nn",
+                                    "value": "dbwc",
                                     "type": "text",
                                     "description": "Must be at least 5 characters. Must not be greater than 20 characters."
                                 },
                                 {
                                     "key": "lastName",
-                                    "value": "ftken",
+                                    "value": "dwcb",
                                     "type": "text",
                                     "description": "Must be at least 5 characters. Must not be greater than 20 characters."
                                 },
                                 {
                                     "key": "email",
-                                    "value": "ekovacek@example.net",
+                                    "value": "pierce.bartoletti@example.com",
                                     "type": "text",
                                     "description": "Must be a valid email address."
                                 },
                                 {
                                     "key": "password",
-                                    "value": "laborum",
+                                    "value": "tenetur",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "phone",
-                                    "value": "omnis",
+                                    "value": "dolorem",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "nin",
-                                    "value": "culpa",
+                                    "value": "enim",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "nic",
-                                    "value": "alias",
+                                    "value": "id",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "original_residence",
-                                    "value": "autem",
+                                    "value": "quibusdam",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "current_residence",
-                                    "value": "rem",
+                                    "value": "sunt",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "fac_id",
-                                    "value": "quam",
+                                    "value": "ut",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "dep_id",
-                                    "value": "beatae",
+                                    "value": "dicta",
                                     "type": "text",
                                     "description": ""
                                 },
                                 {
                                     "key": "type",
-                                    "value": "student",
+                                    "value": "teacher",
                                     "type": "text",
                                     "description": ""
                                 },
@@ -2038,7 +2038,7 @@
                                 {
                                     "id": "user_id",
                                     "key": "user_id",
-                                    "value": "2",
+                                    "value": "17",
                                     "description": "The ID of the user."
                                 }
                             ]
@@ -2111,18 +2111,18 @@
                     ]
                 },
                 {
-                    "name": "GET api\/dashboard\/users\/unactivated_users\/{user}",
+                    "name": "GET api\/dashboard\/users\/unactivated_users\/detail\/{user}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/dashboard\/users\/unactivated_users\/:user",
+                            "path": "api\/dashboard\/users\/unactivated_users\/detail\/:user",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/dashboard\/users\/unactivated_users\/:user",
+                            "raw": "{{baseUrl}}\/api\/dashboard\/users\/unactivated_users\/detail\/:user",
                             "variable": [
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "numquam",
+                                    "value": "id",
                                     "description": ""
                                 }
                             ]
@@ -2178,7 +2178,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "debitis",
+                                    "value": "eius",
                                     "description": ""
                                 }
                             ]
@@ -2299,18 +2299,18 @@
                     ]
                 },
                 {
-                    "name": "GET api\/dashboard\/reserves\/inactive\/users_detail\/{reserve}",
+                    "name": "GET api\/dashboard\/reserves\/inactive\/user_detail\/{reserve}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/dashboard\/reserves\/inactive\/users_detail\/:reserve",
+                            "path": "api\/dashboard\/reserves\/inactive\/user_detail\/:reserve",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/dashboard\/reserves\/inactive\/users_detail\/:reserve",
+                            "raw": "{{baseUrl}}\/api\/dashboard\/reserves\/inactive\/user_detail\/:reserve",
                             "variable": [
                                 {
                                     "id": "reserve",
                                     "key": "reserve",
-                                    "value": "et",
+                                    "value": "doloremque",
                                     "description": ""
                                 }
                             ]
@@ -2366,7 +2366,7 @@
                                 {
                                     "id": "reserve",
                                     "key": "reserve",
-                                    "value": "doloribus",
+                                    "value": "occaecati",
                                     "description": ""
                                 }
                             ]
@@ -2422,7 +2422,7 @@
                                 {
                                     "id": "reserve",
                                     "key": "reserve",
-                                    "value": "culpa",
+                                    "value": "illum",
                                     "description": ""
                                 }
                             ]
@@ -2440,7 +2440,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"return_by\":\"et\"}"
+                            "raw": "{\"return_by\":\"non\"}"
                         },
                         "description": "",
                         "auth": {
@@ -2450,13 +2450,13 @@
                     "response": []
                 },
                 {
-                    "name": "GET api\/dashboard\/reserves\/active\/users",
+                    "name": "GET api\/dashboard\/reserves\/activated\/users",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/dashboard\/reserves\/active\/users",
+                            "path": "api\/dashboard\/reserves\/activated\/users",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/dashboard\/reserves\/active\/users"
+                            "raw": "{{baseUrl}}\/api\/dashboard\/reserves\/activated\/users"
                         },
                         "method": "GET",
                         "header": [
@@ -2509,7 +2509,7 @@
                                 {
                                     "id": "reserve_id",
                                     "key": "reserve_id",
-                                    "value": "18",
+                                    "value": "20",
                                     "description": "The ID of the reserve."
                                 }
                             ]
@@ -2593,7 +2593,7 @@
                                 {
                                     "id": "fine_id",
                                     "key": "fine_id",
-                                    "value": "18",
+                                    "value": "3",
                                     "description": "The ID of the fine."
                                 }
                             ]

@@ -19,7 +19,7 @@ class EmployeeController extends Controller
             if (!$employees->isEmpty()) {
 
                 $employee = Employee::where("email", $request->email)->first();
-                if ($employee && Hash::check($request->password,$employee->password)) {
+                if ($employee && Hash::check($request->password, $employee->password)) {
                     auth()->setUser($employee);
                     $token = auth()->user()->createToken($employee->name)->plainTextToken;
                     return response()->json(['token' => $token, 'employee' => $employee]);
@@ -34,7 +34,7 @@ class EmployeeController extends Controller
                     "type" => "employee"
                 ]);
 
-                if ($request->email == $tempEmployee->email && Hash::check($request->password,$tempEmployee->password)) {
+                if ($request->email == $tempEmployee->email && Hash::check($request->password, $tempEmployee->password)) {
                     auth()->setUser($tempEmployee);
                     $token = auth()->user()->createToken($tempEmployee->name)->plainTextToken;
                     return response()->json(['token' => $token, 'employee' => $tempEmployee]);
@@ -45,7 +45,7 @@ class EmployeeController extends Controller
         } else if ($request->type == "assistant") {
             $assistant = Employee::where("type", "assistant")->first();
             if ($assistant) {
-                if ($request->email == $assistant->email && Hash::check($request->password,$assistant->password)) {
+                if ($request->email == $assistant->email && Hash::check($request->password, $assistant->password)) {
                     $token = auth()->user()->createToken($assistant->name);
                     return response()->json(['token' => $token, 'assi$assistant' => $assistant]);
                 } else {
@@ -59,7 +59,7 @@ class EmployeeController extends Controller
                     "type" => "assistant"
                 ]);
 
-                if ($tempAssistant->email == $request->email && Hash::check($request->password,$tempAssistant->password)) {
+                if ($tempAssistant->email == $request->email && Hash::check($request->password, $tempAssistant->password)) {
                     auth()->setUser($tempAssistant);
                     $token = auth()->user()->createToken($tempAssistant->name);
                     return response()->json(['token' => $token, 'assistant' => $tempAssistant]);

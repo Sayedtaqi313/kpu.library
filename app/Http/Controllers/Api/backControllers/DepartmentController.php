@@ -19,7 +19,7 @@ class DepartmentController extends Controller
         if($faculties) {
             return DepartmentResource::collection($faculties);
         }else {
-            return response()->json(['message' => 'no deparment found' ,'data' => []],Response::HTTP_OK );
+            return response()->json(['message' => 'دیپارتمنت وجود ندارد' ,'data' => []],Response::HTTP_OK );
         }
     }
 
@@ -35,11 +35,6 @@ class DepartmentController extends Controller
         return DepartmentResource::make($Department);
     }
 
-  
-    public function show(string $id)
-    {
-        
-    }
 
    
     public function update(DepartmentRequest $request, string $id)
@@ -53,7 +48,7 @@ class DepartmentController extends Controller
             ]);
             return DepartmentResource::make($department);
         }else {
-            return response()->json(['message' => "Department not found"],Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => "دیپارتمنت وجود ندارد"],Response::HTTP_NOT_FOUND);
         }
       
     }
@@ -64,9 +59,9 @@ class DepartmentController extends Controller
         $department = Department::find($id);
         if($department) {
             $department->delete();
-            return response()->json(['message' => "Department deleted successfully"],Response::HTTP_NO_CONTENT);
+            return response()->json(['message' => "دیپارتمنت موفقانه پاک شد"],Response::HTTP_NO_CONTENT);
         }else {
-            return response()->json(['message' => "Dpartment not found"],Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => "دیپارتمنت وجود ندارد"],Response::HTTP_NOT_FOUND);
         }
      
     }

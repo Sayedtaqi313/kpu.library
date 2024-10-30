@@ -19,29 +19,29 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    
+
     public function index()
     {
         $books = Book::all();
-        if($books) {
+        if ($books) {
             return BookResource::collection($books);
-        }else {
-            return response()->json(['message' => 'no book found' ,'data' => []],Response::HTTP_OK );
+        } else {
+            return response()->json(['message' => 'کتاب وجود ندارد', 'data' => []], Response::HTTP_OK);
         }
     }
 
-   
+
     public function store(StoreBookRequest $request)
     {
         $seciton = Section::find($request->sec_id);
         $category = Category::find($request->cat_id);
         $department = Department::find($request->dep_id);
-        if(!$seciton) {
-            return response()->json(['message' => "Section not found"],Response::HTTP_NOT_FOUND);
-        }else if(!$category) {
-            return response()->json(['message' => "Category not found"],Response::HTTP_NOT_FOUND);
-        }else if(!$department) {
-            return response()->json(['message' => "Department not found"],Response::HTTP_NOT_FOUND);
+        if (!$seciton) {
+            return response()->json(['message' => "الماری وجود ندراد"], Response::HTTP_NOT_FOUND);
+        } else if (!$category) {
+            return response()->json(['message' => "کتگوری وجود ندارد"], Response::HTTP_NOT_FOUND);
+        } else if (!$department) {
+            return response()->json(['message' => "دیپارتمنت وجود ندراد"], Response::HTTP_NOT_FOUND);
         }
 
         $book = Book::create([
@@ -61,8 +61,8 @@ class BookController extends Controller
             'format' => $request->format,
             'barrow' => $request->barrow
         ]);
-        $path = $request->file('image')->store('images/books','public');
-        $path = "storage/" . $path; 
+        $path = $request->file('image')->store('images/books', 'public');
+        $path = "storage/" . $path;
         $book->image()->create([
             'image' => $path
         ]);
@@ -80,31 +80,25 @@ class BookController extends Controller
         return BookResource::make($book);
     }
 
-  
-    public function show(string $id)
-    {
-        //
-    }
 
- 
     public function update(UpdateBookRequest $request, string $id)
     {
         $seciton = Section::find($request->sec_id);
         $category = Category::find($request->cat_id);
         $department = Department::find($request->dep_id);
-        if(!$seciton) {
-            return response()->json(['message' => "Section not found"],Response::HTTP_NOT_FOUND);
-        }else if(!$category) {
-            return response()->json(['message' => "Category not found"],Response::HTTP_NOT_FOUND);
-        }else if(!$department) {
-            return response()->json(['message' => "Department not found"],Response::HTTP_NOT_FOUND);
+        if (!$seciton) {
+            return response()->json(['message' => "الماری وجود ندراد"], Response::HTTP_NOT_FOUND);
+        } else if (!$category) {
+            return response()->json(['message' => "کتگوری وجود ندارد"], Response::HTTP_NOT_FOUND);
+        } else if (!$department) {
+            return response()->json(['message' => "دیپارتمنت وجود ندراد"], Response::HTTP_NOT_FOUND);
         }
-            
+
         $book = Book::find($id);
-        if(!$book){
-            return response()->json(['message' => "Book not found"],Response::HTTP_NOT_FOUND);
+        if (!$book) {
+            return response()->json(['message' => "کتاب وجود ندارد"], Response::HTTP_NOT_FOUND);
         }
-         $book->update([
+        $book->update([
             'title' => $request->title,
             'author' => $request->author,
             'publisher' => $request->publisher,
@@ -121,46 +115,47 @@ class BookController extends Controller
             'format' => $request->format,
             'barrow' => $request->barrow
         ]);
-        
-        if($request->hasFile('image')){
-            $orgPath = explode("/",$book->image->image);
+
+        if ($request->hasFile('image')) {
+            $orgPath = explode("/", $book->image->image);
             array_shift($orgPath);
-            $orgPath = implode("/",$orgPath);
-            if(Storage::disk('public')->exists($orgPath)){
+            $orgPath = implode("/", $orgPath);
+            if (Storage::disk('public')->exists($orgPath)) {
                 Storage::disk('public')->delete($orgPath);
             }
-            $path = $request->file('image')->store('images/books','public');
-            $path = $path = "storage/" . $path; 
+            $path = $request->file('image')->store('images/books', 'public');
+            $path = $path = "storage/" . $path;
             $book->image()->update([
                 'image' => $path
             ]);
-            }
+        }
 
-            $section = Section::find($request->sec_id);
-            $section->shelf = $request->shelf;
-            $section->save();
+        $section = Section::find($request->sec_id);
+        $section->shelf = $request->shelf;
+        $section->save();
 
-            $book->stock()->update([
-                'book_id' => $book->id,
-                'total' => $request->total,
-                'remain' => $request->total,
-                'status' => "exist"
-            ]);
-         
-        
+        $book->stock()->update([
+            'book_id' => $book->id,
+            'total' => $request->total,
+            'remain' => $request->total,
+            'status' => "exist"
+        ]);
+
+
         return BookResource::make($book);
-    
+
     }
 
-  
+
     public function destroy(string $id)
     {
-        $book = Book::find($id);;
-        if($book) {
+        $book = Book::find($id);
+        ;
+        if ($book) {
             $book->delete();
-            return response()->json(['message' => "book deleted successfully"],Response::HTTP_NO_CONTENT);
-        }else {
-            return response()->json(['message' => "item not found"],Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => "کتاب موفقانه پاک شد"], Response::HTTP_NO_CONTENT);
+        } else {
+            return response()->json(['message' => "کتاب وجود ندراد"], Response::HTTP_NOT_FOUND);
         }
     }
 }

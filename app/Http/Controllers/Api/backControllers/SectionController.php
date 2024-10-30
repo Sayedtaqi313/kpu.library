@@ -11,18 +11,18 @@ use App\Models\Section;
 
 class SectionController extends Controller
 {
-    
+
     public function index()
     {
         $sections = Section::all();
-        if($sections) {
+        if ($sections) {
             return SectionResource::collection($sections);
-        }else {
-            return response()->json(['message' => 'no section found' ,'data' => []],Response::HTTP_OK );
+        } else {
+            return response()->json(['message' => 'الماری وجود ندارد', 'data' => []], Response::HTTP_OK);
         }
     }
 
-   
+
     public function store(SectionRequest $request)
     {
         $section = Section::create([
@@ -32,31 +32,31 @@ class SectionController extends Controller
         return SectionResource::make($section);
     }
 
-   
+
     public function show(string $id)
     {
         //
     }
 
-   
+
     public function update(SectionRequest $request, Section $section)
     {
         $section->update([
             "section" => $request->section,
         ]);
 
-        return SectionResource::make($section);
+        return response()->json(['message' => 'الماری موفقانه بروز رسانی شد', 'data' => SectionResource::make($section)]);
     }
 
-  
+
     public function destroy(string $id)
     {
         $section = Section::find($id);
-        if($section) {
+        if ($section) {
             $section->delete();
-            return response()->json(['message','section deleted successfully'],Response::HTTP_NO_CONTENT);
-        }else {
-            return response()->json(['message','the item not found'],Response::HTTP_NOT_FOUND);
+            return response()->json(['message', 'الماری موفقانه پاک شد'], Response::HTTP_NO_CONTENT);
+        } else {
+            return response()->json(['message', 'الماری وجود ندارد'], Response::HTTP_NOT_FOUND);
         }
     }
 }

@@ -15,48 +15,50 @@ use App\Models\Fine;
 
 class ProfileController extends Controller
 {
-   public function showProfile(Request $request,) {
-        $user =  auth()->user();
-        if($user->type == "student") {
+    public function showProfile(Request $request, )
+    {
+        $user = auth()->user();
+        if ($user->type == "student") {
             return StudentProfileResource::make($user);
-        }else if($user->type == "teacher"){
+        } else if ($user->type == "teacher") {
 
-        }else {
-            return response()->json(['message' => 'User type is unkonwn']);
+        } else {
+            return response()->json(['message' => 'تابپ کاربر نامعتبر می باشد']);
         }
-        
-   }
 
-   public function updateProfile(StudentProfileRequest $request) {
-       $faculty = Faculty::find($request->fac_id)->first();
-       $department = Department::find($request->dep_id)->first();
-       if(!$faculty){
-           return response()->json(['message' => 'Faculty not found'],Response::HTTP_NOT_FOUND);
-       }
-       if(!$department) {
-           return response()->json(['message' => 'Department not found'],Response::HTTP_NOT_FOUND);
-       }
-       $user = auth()->user();
-       if($user->type == "student") {
-            if($request->hasFile('image')){
+    }
+
+    public function updateProfile(StudentProfileRequest $request)
+    {
+        $faculty = Faculty::find($request->fac_id)->first();
+        $department = Department::find($request->dep_id)->first();
+        if (!$faculty) {
+            return response()->json(['message' => 'فاکولته وجود ندارد '], Response::HTTP_NOT_FOUND);
+        }
+        if (!$department) {
+            return response()->json(['message' => 'دیپارتمنت وجود ندراد'], Response::HTTP_NOT_FOUND);
+        }
+        $user = auth()->user();
+        if ($user->type == "student") {
+            if ($request->hasFile('image')) {
                 $oldPath = $user->userable->image->image;
-                $arr = explode("/",$oldPath);
+                $arr = explode("/", $oldPath);
                 array_shift($arr);
-                $orgPath = implode("/",$arr);
-                if(Storage::disk('public')->exists($orgPath)){
+                $orgPath = implode("/", $arr);
+                if (Storage::disk('public')->exists($orgPath)) {
                     Storage::disk('public')->delete($orgPath);
                 }
 
-                $path = $request->file('image')->store('images/users','public');
+                $path = $request->file('image')->store('images/users', 'public');
                 $path = "storage/" . $path;
                 $user->userable->image->image = $path;
                 $user->userable->image->save();
-                
+
             }
 
             $user->email = $request->email;
             $user->save();
-           
+
             $user->userable->firstName = $request->firstName;
             $user->userable->lastName = $request->lastName;
             $user->userable->nin = $request->nin;
@@ -67,22 +69,23 @@ class ProfileController extends Controller
             $user->userable->fac_id = $request->fac_id;
             $user->userable->dep_id = $request->dep_id;
             $user->userable->save();
-            return response()->json(['message'=>'Profile updated successfully']);
-       }else if($user->type == "teacher") {
+            return response()->json(['message' => 'پروفایل شما موفقانه بروزرسانی شد']);
+        } else if ($user->type == "teacher") {
 
-       }
-   } 
-
-   public function deleteAcount() {
-    $user = auth()->user();
-    $fine = Fine::where('user_id',$user->id)->where('paid','no')->first();
-    if($fine) {
-        return response()->json(['message'=>'First you have to pay your fine']);
+        }
     }
-       $user->tokens()->delete();
-       $user->userable->image()->delete();
-       $user->userable()->delete();
-       $user->delete();
-       return response()->noContent();
-   }
+
+    public function deleteAcount()
+    {
+        $user = auth()->user();
+        $fine = Fine::where('user_id', $user->id)->where('paid', 'no')->first();
+        if ($fine) {
+            return response()->json(['message' => 'شما اول بابد جریمه خود را پرداخت کنید']);
+        }
+        $user->tokens()->delete();
+        $user->userable->image()->delete();
+        $user->userable()->delete();
+        $user->delete();
+        return response()->noContent();
+    }
 }

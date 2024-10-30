@@ -60,62 +60,62 @@ paths:
                 firstName:
                   type: string
                   description: 'Must be at least 5 characters. Must not be greater than 20 characters.'
-                  example: g
+                  example: fj
                   nullable: false
                 lastName:
                   type: string
                   description: 'Must be at least 5 characters. Must not be greater than 20 characters.'
-                  example: cnv
+                  example: ksrq
                   nullable: false
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: ukonopelski@example.com
+                  example: kadin.gutkowski@example.com
                   nullable: false
                 password:
                   type: string
                   description: ''
-                  example: et
+                  example: quaerat
                   nullable: false
                 phone:
                   type: string
                   description: ''
-                  example: quos
+                  example: consequatur
                   nullable: false
                 nin:
                   type: string
                   description: ''
-                  example: aut
+                  example: mollitia
                   nullable: false
                 nic:
                   type: string
                   description: ''
-                  example: quidem
+                  example: ipsa
                   nullable: false
                 original_residence:
                   type: string
                   description: ''
-                  example: id
+                  example: et
                   nullable: false
                 current_residence:
                   type: string
                   description: ''
-                  example: enim
+                  example: et
                   nullable: false
                 fac_id:
                   type: string
                   description: ''
-                  example: voluptatibus
+                  example: et
                   nullable: false
                 dep_id:
                   type: string
                   description: ''
-                  example: architecto
+                  example: eos
                   nullable: false
                 type:
                   type: string
                   description: ''
-                  example: student
+                  example: teacher
                   nullable: false
                   enum:
                     - teacher
@@ -159,12 +159,12 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: retha71@example.com
+                  example: destini39@example.net
                   nullable: false
                 password:
                   type: string
                   description: ''
-                  example: blanditiis
+                  example: praesentium
                   nullable: false
               required:
                 - email
@@ -228,10 +228,10 @@ paths:
       tags:
         - Endpoints
       security: []
-  '/api/category/books/{category}':
+  '/api/categories/books/{category}':
     get:
       summary: ''
-      operationId: getApiCategoryBooksCategory
+      operationId: getApiCategoriesBooksCategory
       description: ''
       parameters: []
       responses:
@@ -255,14 +255,14 @@ paths:
         in: path
         name: category
         description: ''
-        example: 17
+        example: 4
         required: true
         schema:
           type: integer
-  '/api/book/detials/{book}':
+  '/api/books/detials/{book}':
     get:
       summary: ''
-      operationId: getApiBookDetialsBook
+      operationId: getApiBooksDetialsBook
       description: ''
       parameters: []
       responses:
@@ -286,7 +286,7 @@ paths:
         in: path
         name: book
         description: ''
-        example: voluptas
+        example: minus
         required: true
         schema:
           type: string
@@ -354,10 +354,10 @@ paths:
       tags:
         - Endpoints
       security: []
-  '/api/cart/book/{book}':
+  '/api/cart/books/{book}':
     post:
       summary: ''
-      operationId: postApiCartBookBook
+      operationId: postApiCartBooksBook
       description: ''
       parameters: []
       responses: {  }
@@ -366,7 +366,7 @@ paths:
       security: []
     delete:
       summary: ''
-      operationId: deleteApiCartBookBook
+      operationId: deleteApiCartBooksBook
       description: ''
       parameters: []
       responses: {  }
@@ -382,10 +382,10 @@ paths:
         required: true
         schema:
           type: integer
-  '/api/reserve/book/{book}':
+  '/api/reserve/books/{book}':
     post:
       summary: ''
-      operationId: postApiReserveBookBook
+      operationId: postApiReserveBooksBook
       description: ''
       parameters: []
       responses: {  }
@@ -397,7 +397,7 @@ paths:
         in: path
         name: book
         description: 'The book.'
-        example: 15
+        example: 5
         required: true
         schema:
           type: integer
@@ -420,17 +420,17 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: keebler.remington@example.net
+                  example: ffisher@example.org
                   nullable: false
                 password:
                   type: string
                   description: ''
-                  example: 'XR#\xs"U''c#F*(o6-.3Q'
+                  example: 'lE}`zCAIL~\s9f@^BH'
                   nullable: false
                 type:
                   type: string
                   description: ''
-                  example: assistant
+                  example: employee
                   nullable: false
                   enum:
                     - assistant
@@ -462,10 +462,10 @@ paths:
       tags:
         - Endpoints
       security: []
-  '/api/dashboard/admin/account/{admin_id}':
+  '/api/dashboard/admin/account/update/{admin_id}':
     post:
       summary: ''
-      operationId: postApiDashboardAdminAccountAdmin_id
+      operationId: postApiDashboardAdminAccountUpdateAdmin_id
       description: ''
       parameters: []
       responses: {  }
@@ -481,12 +481,12 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: amet
+                  example: quis
                   nullable: false
                 email:
                   type: string
                   description: ''
-                  example: temporibus
+                  example: deserunt
                   nullable: false
                 password:
                   type: string
@@ -557,7 +557,7 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: soluta
+                  example: voluptatem
                   nullable: false
               required:
                 - name
@@ -581,7 +581,7 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: adipisci
+                  example: quaerat
                   nullable: false
               required:
                 - name
@@ -600,7 +600,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the faculty.'
-        example: vel
+        example: voluptatem
         required: true
         schema:
           type: string
@@ -644,12 +644,12 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: porro
+                  example: numquam
                   nullable: false
                 fac_id:
                   type: string
                   description: 'The <code>id</code> of an existing record in the faculties table.'
-                  example: dolorum
+                  example: optio
                   nullable: false
               required:
                 - name
@@ -695,12 +695,12 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: soluta
+                  example: iste
                   nullable: false
                 fac_id:
                   type: string
                   description: 'The <code>id</code> of an existing record in the faculties table.'
-                  example: sunt
+                  example: et
                   nullable: false
               required:
                 - name
@@ -720,7 +720,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the department.'
-        example: quia
+        example: quam
         required: true
         schema:
           type: string
@@ -764,7 +764,7 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: doloremque
+                  example: nemo
                   nullable: false
               required:
                 - name
@@ -809,7 +809,7 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: ut
+                  example: qui
                   nullable: false
               required:
                 - name
@@ -828,7 +828,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the category.'
-        example: 1
+        example: 11
         required: true
         schema:
           type: integer
@@ -872,7 +872,7 @@ paths:
                 section:
                   type: string
                   description: ''
-                  example: sed
+                  example: quia
                   nullable: false
               required:
                 - section
@@ -917,7 +917,7 @@ paths:
                 section:
                   type: string
                   description: ''
-                  example: nihil
+                  example: rerum
                   nullable: false
               required:
                 - section
@@ -936,7 +936,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the section.'
-        example: architecto
+        example: est
         required: true
         schema:
           type: string
@@ -980,42 +980,42 @@ paths:
                 title:
                   type: string
                   description: ''
-                  example: natus
+                  example: aut
                   nullable: false
                 author:
                   type: string
                   description: ''
-                  example: explicabo
+                  example: et
                   nullable: false
                 publisher:
                   type: string
                   description: ''
-                  example: reiciendis
+                  example: fuga
                   nullable: false
                 publicationYear:
                   type: string
                   description: ''
-                  example: incidunt
+                  example: dolorum
                   nullable: false
                 lang:
                   type: string
                   description: ''
-                  example: odit
+                  example: et
                   nullable: false
                 edition:
                   type: string
                   description: ''
-                  example: quisquam
+                  example: aut
                   nullable: false
                 translator:
                   type: string
                   description: ''
-                  example: qui
+                  example: reiciendis
                   nullable: false
                 isbn:
                   type: string
                   description: ''
-                  example: nam
+                  example: minus
                   nullable: false
                 description:
                   type: string
@@ -1025,12 +1025,12 @@ paths:
                 code:
                   type: string
                   description: ''
-                  example: fugit
+                  example: facilis
                   nullable: false
                 cat_id:
                   type: string
                   description: ''
-                  example: consequatur
+                  example: est
                   nullable: false
                 dep_id:
                   type: string
@@ -1040,27 +1040,27 @@ paths:
                 sec_id:
                   type: string
                   description: ''
-                  example: cumque
+                  example: et
                   nullable: false
                 format:
                   type: string
                   description: ''
-                  example: architecto
+                  example: nostrum
                   nullable: false
                 borrow:
                   type: string
                   description: ''
-                  example: deserunt
+                  example: recusandae
                   nullable: false
                 total:
                   type: string
                   description: ''
-                  example: laboriosam
+                  example: animi
                   nullable: false
                 shelf:
                   type: string
                   description: ''
-                  example: eos
+                  example: rerum
                   nullable: false
                 image:
                   type: string
@@ -1126,42 +1126,42 @@ paths:
                 title:
                   type: string
                   description: ''
-                  example: voluptatibus
+                  example: eaque
                   nullable: false
                 author:
                   type: string
                   description: ''
-                  example: officia
+                  example: sit
                   nullable: false
                 publisher:
                   type: string
                   description: ''
-                  example: expedita
+                  example: quo
                   nullable: false
                 publicationYear:
                   type: string
                   description: ''
-                  example: numquam
+                  example: porro
                   nullable: false
                 lang:
                   type: string
                   description: ''
-                  example: aperiam
+                  example: qui
                   nullable: false
                 edition:
                   type: string
                   description: ''
-                  example: libero
+                  example: in
                   nullable: false
                 translator:
                   type: string
                   description: ''
-                  example: aut
+                  example: ex
                   nullable: false
                 isbn:
                   type: string
                   description: ''
-                  example: eius
+                  example: atque
                   nullable: false
                 description:
                   type: string
@@ -1171,27 +1171,27 @@ paths:
                 cat_id:
                   type: string
                   description: ''
-                  example: sit
+                  example: et
                   nullable: false
                 dep_id:
                   type: string
                   description: ''
-                  example: odio
+                  example: dolorem
                   nullable: false
                 sec_id:
                   type: string
                   description: ''
-                  example: est
+                  example: qui
                   nullable: false
                 format:
                   type: string
                   description: ''
-                  example: labore
+                  example: amet
                   nullable: false
                 barrow:
                   type: string
                   description: ''
-                  example: enim
+                  example: voluptatem
                   nullable: false
               required:
                 - title
@@ -1222,7 +1222,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the book.'
-        example: 17
+        example: 6
         required: true
         schema:
           type: integer
@@ -1245,62 +1245,62 @@ paths:
                 firstName:
                   type: string
                   description: 'Must be at least 5 characters. Must not be greater than 20 characters.'
-                  example: nn
+                  example: dbwc
                   nullable: false
                 lastName:
                   type: string
                   description: 'Must be at least 5 characters. Must not be greater than 20 characters.'
-                  example: ftken
+                  example: dwcb
                   nullable: false
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: ekovacek@example.net
+                  example: pierce.bartoletti@example.com
                   nullable: false
                 password:
                   type: string
                   description: ''
-                  example: laborum
+                  example: tenetur
                   nullable: false
                 phone:
                   type: string
                   description: ''
-                  example: omnis
+                  example: dolorem
                   nullable: false
                 nin:
                   type: string
                   description: ''
-                  example: culpa
+                  example: enim
                   nullable: false
                 nic:
                   type: string
                   description: ''
-                  example: alias
+                  example: id
                   nullable: false
                 original_residence:
                   type: string
                   description: ''
-                  example: autem
+                  example: quibusdam
                   nullable: false
                 current_residence:
                   type: string
                   description: ''
-                  example: rem
+                  example: sunt
                   nullable: false
                 fac_id:
                   type: string
                   description: ''
-                  example: quam
+                  example: ut
                   nullable: false
                 dep_id:
                   type: string
                   description: ''
-                  example: beatae
+                  example: dicta
                   nullable: false
                 type:
                   type: string
                   description: ''
-                  example: student
+                  example: teacher
                   nullable: false
                   enum:
                     - teacher
@@ -1340,7 +1340,7 @@ paths:
         in: path
         name: user_id
         description: 'The ID of the user.'
-        example: 2
+        example: 17
         required: true
         schema:
           type: integer
@@ -1366,10 +1366,10 @@ paths:
       tags:
         - Endpoints
       security: []
-  '/api/dashboard/users/unactivated_users/{user}':
+  '/api/dashboard/users/unactivated_users/detail/{user}':
     get:
       summary: ''
-      operationId: getApiDashboardUsersUnactivated_usersUser
+      operationId: getApiDashboardUsersUnactivated_usersDetailUser
       description: ''
       parameters: []
       responses:
@@ -1393,7 +1393,7 @@ paths:
         in: path
         name: user
         description: ''
-        example: numquam
+        example: id
         required: true
         schema:
           type: string
@@ -1412,7 +1412,7 @@ paths:
         in: path
         name: user
         description: ''
-        example: debitis
+        example: eius
         required: true
         schema:
           type: string
@@ -1460,10 +1460,10 @@ paths:
       tags:
         - Endpoints
       security: []
-  '/api/dashboard/reserves/inactive/users_detail/{reserve}':
+  '/api/dashboard/reserves/inactive/user_detail/{reserve}':
     get:
       summary: ''
-      operationId: getApiDashboardReservesInactiveUsers_detailReserve
+      operationId: getApiDashboardReservesInactiveUser_detailReserve
       description: ''
       parameters: []
       responses:
@@ -1487,7 +1487,7 @@ paths:
         in: path
         name: reserve
         description: ''
-        example: et
+        example: doloremque
         required: true
         schema:
           type: string
@@ -1518,7 +1518,7 @@ paths:
         in: path
         name: reserve
         description: ''
-        example: doloribus
+        example: occaecati
         required: true
         schema:
           type: string
@@ -1541,7 +1541,7 @@ paths:
                 return_by:
                   type: string
                   description: ''
-                  example: et
+                  example: non
                   nullable: false
               required:
                 - return_by
@@ -1551,14 +1551,14 @@ paths:
         in: path
         name: reserve
         description: ''
-        example: culpa
+        example: illum
         required: true
         schema:
           type: string
-  /api/dashboard/reserves/active/users:
+  /api/dashboard/reserves/activated/users:
     get:
       summary: ''
-      operationId: getApiDashboardReservesActiveUsers
+      operationId: getApiDashboardReservesActivatedUsers
       description: ''
       parameters: []
       responses:
@@ -1592,7 +1592,7 @@ paths:
         in: path
         name: reserve_id
         description: 'The ID of the reserve.'
-        example: 18
+        example: 20
         required: true
         schema:
           type: integer
@@ -1633,7 +1633,7 @@ paths:
         in: path
         name: fine_id
         description: 'The ID of the fine.'
-        example: 18
+        example: 3
         required: true
         schema:
           type: integer
