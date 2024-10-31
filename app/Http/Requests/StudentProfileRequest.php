@@ -26,7 +26,7 @@ class StudentProfileRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->user->id),
+                Rule::unique('users', 'email')->ignore(auth()->user()->id),
             ],
             "nin" => "required",
             "nic" => "required",

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\frontControllers;
 
 use App\Http\Resources\FacultyResource;
+use App\Http\Resources\HomeResource;
 use App\Models\Department;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\BookResource;
@@ -178,10 +179,10 @@ class HomeController extends Controller
 
     public function home(Request $request)
     {
-        $request->merge(['category_with_books' => 'yes']);
-        $categories = Category::all();
+       
+       
         $categories_num_books = Category::select('name')->withCount('books')->get();
-        $allBooks = Book::all()->count();
+        $books = Book::all();
         $hardBooks = Book::where('format', 'hard')->count();
         $pdfBooks = Book::where('format', 'pdf')->count();
         $reservableBooks = Book::where('borrow', 'no')->count();
@@ -189,16 +190,14 @@ class HomeController extends Controller
         $users = User::all()->count();
         return response()->json(
             [
-                'all_books' => $allBooks,
+                'all_books' => $books->count(),
                 'all_reservable_books' => $reservableBooks,
                 'all_borrowable_books' => $borrowableBooks,
                 'pdf_books' => $pdfBooks,
                 'hard_books' => $hardBooks,
-                'all_papers' => 200,
-                'all_thisis' => 100,
                 'all_registered_users' => $users,
                 'categories_num_books' => $categories_num_books,
-                'categories_with_books' => CategoryResource::collection($categories),
+                'data' => HomeResource::collection($books),
             ]
         );
     }

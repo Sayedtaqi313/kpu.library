@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\StockResource;
+use App\Models\Book;
 
 class BookResource extends JsonResource
 {
@@ -31,7 +32,12 @@ class BookResource extends JsonResource
                 'isbn' => $this->isbn,
                 'format' => $this->format,
                 'barrow' => $this->barrow,
-                'category' => (CategoryResource::make($this->category))
+                'category' => (CategoryResource::make($this->category)),
+                'faculty' => (FacultyResource::make($this->department->faculty)),
+                'department' => (DepartmentResource::make($this->department)),
+                'related_books_category' => Book::where('cat_id',$this->cat_id)->get(),
+                'related_books_department' => Book::where('dep_id',$this->dep_id)->get()
+
             ];
         }
         return [
@@ -44,6 +50,11 @@ class BookResource extends JsonResource
             'lang' => $this->lang,
             'edition' => $this->edition,
             'translator' => $this->translator,
+            'isbn' => $this->isbn,
+            'code' => $this->code,
+            'description' => $this->description,
+            'borrow' => $this->borrow,
+         
         ];
     }
 

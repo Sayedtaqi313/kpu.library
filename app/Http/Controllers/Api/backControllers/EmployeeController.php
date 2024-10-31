@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\backControllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUpdateRequest;
+use App\Http\Resources\EmployeeResource;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class EmployeeController extends Controller
                 if ($employee && Hash::check($request->password, $employee->password)) {
                     auth()->setUser($employee);
                     $token = auth()->user()->createToken($employee->name)->plainTextToken;
-                    return response()->json(['token' => $token, 'employee' => $employee]);
+                    return response()->json(['token' => $token, 'employee' => EmployeeResource::make($employee)]);
                 } else {
                     return response()->json(['message' => 'Credentail is incorrect']);
                 }
@@ -37,7 +38,7 @@ class EmployeeController extends Controller
                 if ($request->email == $tempEmployee->email && Hash::check($request->password, $tempEmployee->password)) {
                     auth()->setUser($tempEmployee);
                     $token = auth()->user()->createToken($tempEmployee->name)->plainTextToken;
-                    return response()->json(['token' => $token, 'employee' => $tempEmployee]);
+                    return response()->json(['token' => $token, 'employee' =>  EmployeeResource::make($tempEmployee)]);
                 } else {
                     return response()->json(['message' => 'Credentail is incorrect']);
                 }
@@ -47,7 +48,7 @@ class EmployeeController extends Controller
             if ($assistant) {
                 if ($request->email == $assistant->email && Hash::check($request->password, $assistant->password)) {
                     $token = auth()->user()->createToken($assistant->name);
-                    return response()->json(['token' => $token, 'assi$assistant' => $assistant]);
+                    return response()->json(['token' => $token, '$assistant' =>  EmployeeResource::make($assistant)]);
                 } else {
                     return response()->json(['message' => 'Credentail is incorrect']);
                 }
@@ -62,7 +63,7 @@ class EmployeeController extends Controller
                 if ($tempAssistant->email == $request->email && Hash::check($request->password, $tempAssistant->password)) {
                     auth()->setUser($tempAssistant);
                     $token = auth()->user()->createToken($tempAssistant->name);
-                    return response()->json(['token' => $token, 'assistant' => $tempAssistant]);
+                    return response()->json(['token' => $token, 'assistant' =>  EmployeeResource::make($tempAssistant)]);
                 } else {
                     return response()->json(['message' => 'Credentail is incorrect']);
                 }

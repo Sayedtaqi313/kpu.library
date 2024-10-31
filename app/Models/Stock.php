@@ -11,7 +11,7 @@ class Stock extends Model
     use HasFactory;
     protected $fillable = ['book_id','total','remain','status'];
     public function book() {
-        return $this->belongsTo(Book::class,'boo_id');
+        return $this->belongsTo(Book::class,'book_id');
     }
 }
 

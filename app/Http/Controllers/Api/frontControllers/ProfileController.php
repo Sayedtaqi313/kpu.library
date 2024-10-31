@@ -30,6 +30,7 @@ class ProfileController extends Controller
 
     public function updateProfile(StudentProfileRequest $request)
     {
+    
         $faculty = Faculty::find($request->fac_id)->first();
         $department = Department::find($request->dep_id)->first();
         if (!$faculty) {

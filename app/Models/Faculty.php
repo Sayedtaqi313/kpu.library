@@ -19,4 +19,8 @@ class Faculty extends Model
     public function users() {
         return $this->hasMany(User::class,'fac_id');
     }
+
+    public function books() {
+        return $this->hasMany(Book::class ,'fac_id');
+    }
 }

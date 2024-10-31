@@ -34,6 +34,13 @@ class Book extends Model
         return $this->belongsTo(Section::class,'sec_id');
     }
 
+    public function faculty() {
+        return $this->belongsTo(Faculty::class,'fac_id');
+    }
+
+    public function department() {
+        return $this->belongsTo(Department::class, 'dep_id');
+    }
     public function category() {
         return $this->belongsTo(Category::class,'cat_id');
     }
