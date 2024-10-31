@@ -9,7 +9,7 @@ use App\Models\Fine;
 
 class FineController extends Controller
 {
-    public function getUnPaidUsers(Request $request)
+    public function getUnpaidUsers(Request $request)
     {
         $fines = Fine::where('paid', 'no')->get();
         return FineResource::collection($fines);

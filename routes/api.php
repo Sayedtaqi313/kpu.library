@@ -57,7 +57,10 @@ Route::prefix('/dashboard')->middleware('auth:admin')->group(function () {
 
     //admin routes
     Route::prefix('/admin')->group(function () {
-        Route::post('/account/update/{admin}', [EmployeeController::class, 'update']);
+        Route::get('account/employees',[EmployeeController::class,'getAllEmployees']);
+        Route::post('/account/new/create',[EmployeeController::class,'createEmployee']);
+        Route::post('/account/update/employee/{employee}', [EmployeeController::class, 'update']);
+        Route::post('/account/set_permissions/',[EmployeeController::class,'setPermission']);
         Route::post('/logout', [EmployeeController::class, 'logout']);
     });
 
@@ -92,7 +95,7 @@ Route::prefix('/dashboard')->middleware('auth:admin')->group(function () {
 
     //fine controller 
     Route::prefix('/fines')->group(function () {
-        Route::get('/unpaid/users', [FineController::class, 'getUnPaidUsers']);
+        Route::get('/unpaid/users', [FineController::class, 'getUnpaidUsers']);
         Route::post('/pay/{fine}', [FineController::class, 'payFine']);
         Route::get('/paid/users', [FineController::class, 'paidUsers']);
     });

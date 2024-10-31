@@ -9,8 +9,8 @@ class permission extends Model
 {
     use HasFactory;
     
-    public function employee() {
-        return $this->hasOne(Employee::class,'emp_id');
+    public function employees() {
+        return $this->belongsToMany(Employee::class,'employee_permiision');
     }
 }
 

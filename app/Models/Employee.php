@@ -11,7 +11,9 @@ class Employee extends Authenticatable
     use HasFactory, HasApiTokens;
 
     protected $fillable = ['name','email','password','type'];
+   
+
     public function permissions() {
-        return $this->hasMany(Permission::class,'emp_id');
+        return $this->belongsToMany(Permission::class,'employee_permission');
     }
 }
