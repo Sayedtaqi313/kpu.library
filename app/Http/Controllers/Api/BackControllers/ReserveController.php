@@ -51,7 +51,7 @@ class ReserveController extends Controller
    }
    public function getReservedBookDetailById(Request $request, string $id)
    {
-      $request->merge(['detail' => 'yes']);
+
       $reserve = Reserve::find($id);
       return BookResource::make($reserve->book);
    }
@@ -70,6 +70,19 @@ class ReserveController extends Controller
    public function userReturnBook(Request $request, Reserve $reserve)
    {
       $reserve->delete();
-      return response()->json(['message' => 'یسر کتاب را موففانه پس اورد']);
+      return response()->json(['message' => ' کتاب را موففانه پس اورد']);
+   }
+
+   public function allReservedBook(Request $request)
+   {
+      $request->merge(['get_reserved_book' => 'yes']);
+      $reservedBook = Reserve::withTrashed()->where('status', 'active')->get();
+      return ReserveResource::collection($reservedBook);
+   }
+   public function allBookInReserve(Request $request)
+   {
+      $request->merge(['get_reserved_book' => 'yes']);
+      $reserves = Reserve::where('status', 'active')->get();
+      return ReserveResource::collection($reserves);
    }
 }

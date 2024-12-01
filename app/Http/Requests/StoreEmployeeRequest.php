@@ -25,6 +25,15 @@ class StoreEmployeeRequest extends FormRequest
             'name' => 'required',
             'email' => 'required',
             'password' => 'required'
-        ]; 
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "نام ضروری می باشد",
+            "email.required" => "ایمیل ضروری می باشد ",
+            "password.required" => "پسورد ضروری می باشد"
+        ];
     }
 }

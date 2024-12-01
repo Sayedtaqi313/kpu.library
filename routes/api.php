@@ -97,6 +97,8 @@ Route::prefix('/dashboard')->middleware('auth:admin')->group(function () {
         Route::post('/active/{reserve}', [ReserveController::class, 'setBook']);
         Route::get('/activated/users', [ReserveController::class, 'usersGotBook']);
         Route::post('/return/book/{reserve}', [ReserveController::class, 'userReturnBook']);
+        Route::get('/books/in/reserve', [ReserveController::class, 'allBookInReserve']);
+        Route::get('/books/have_reserved', [ReserveController::class, 'allReservedBook']);
     });
 
     //fine controller 

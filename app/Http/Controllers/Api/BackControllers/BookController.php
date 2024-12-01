@@ -36,8 +36,6 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
 
-
-
         $book = new Book();
         $book->title = $request->title;
         $book->author = $request->author;
@@ -111,6 +109,7 @@ class BookController extends Controller
             'remain' => $request->total,
             'status' => "exist",
         ]);
+
         return BookResource::make($book);
     }
 

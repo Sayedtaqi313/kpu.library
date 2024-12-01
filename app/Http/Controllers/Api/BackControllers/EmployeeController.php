@@ -44,13 +44,14 @@ class EmployeeController extends Controller
     }
     public function login(AdminLoginRequest $request)
     {
+
         if ($request->type == "employee") {
             $employees = Employee::where("type", "employee")->first();
             if ($employees) {
                 $employee = Employee::where("email", $request->email)->first();
                 if ($employee && Hash::check($request->password, $employee->password)) {
-                    auth()->setUser($employee);
-                    $token = auth()->user()->createToken($employee->name)->plainTextToken;
+                    auth('admin')->setUser($employee);
+                    $token = auth('admin')->user()->createToken($employee->name)->plainTextToken;
                     return response()->json(['token' => $token, 'employee' => EmployeeResource::make($employee)]);
                 } else {
                     return response()->json(['message' => 'ایمیل یا پسورد شما اشتباه می باشد']);
@@ -66,8 +67,8 @@ class EmployeeController extends Controller
                 $permissionsId = Permission::pluck('id')->toArray();
                 $tempEmployee->permissions()->attach($permissionsId);
                 if ($request->email == $tempEmployee->email && Hash::check($request->password, $tempEmployee->password)) {
-                    auth()->setUser($tempEmployee);
-                    $token = auth()->user()->createToken($tempEmployee->name)->plainTextToken;
+                    auth('admin')->setUser($tempEmployee);
+                    $token = auth('admin')->user()->createToken($tempEmployee->name)->plainTextToken;
                     return response()->json(['token' => $token, 'employee' =>  EmployeeResource::make($tempEmployee)]);
                 } else {
                     return response()->json(['message' => 'ایمیل یا پسورد شما اشتباه می باشد']);
@@ -77,8 +78,8 @@ class EmployeeController extends Controller
             $assistant = Employee::where("type", "assistant")->first();
             if ($assistant) {
                 if ($request->email == $assistant->email && Hash::check($request->password, $assistant->password)) {
-                    auth()->setUser($assistant);
-                    $token = auth()->user()->createToken($assistant->name)->plainTextToken;
+                    auth('admin')->setUser($assistant);
+                    $token = auth('admin')->user()->createToken($assistant->name)->plainTextToken;
                     return response()->json(['token' => $token, '$assistant' =>  EmployeeResource::make($assistant)]);
                 } else {
                     return response()->json(['message' => 'ایمیل یا پسورد شما اشتباه می باشد']);
@@ -92,13 +93,15 @@ class EmployeeController extends Controller
                 ]);
 
                 if ($tempAssistant->email == $request->email && Hash::check($request->password, $tempAssistant->password)) {
-                    auth()->setUser($tempAssistant);
+                    auth('admin')->setUser($tempAssistant);
                     $token = auth()->user()->createToken($tempAssistant->name)->plainTextToken;
                     return response()->json(['token' => $token, 'assistant' =>  EmployeeResource::make($tempAssistant)]);
                 } else {
                     return response()->json(['message' => 'ایمیل یا پسورد شما اشتباه است']);
                 }
             }
+        } else {
+            return response()->json(['message' => "تایپ انتخاب شد اشتباه می باشد"]);
         }
     }
 

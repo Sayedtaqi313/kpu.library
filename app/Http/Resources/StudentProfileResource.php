@@ -18,6 +18,8 @@ class StudentProfileResource extends JsonResource
     {
         return  [
             "id" => $this->id,
+            "firstName" => $this->userable->firstName,
+            "lastName" => $this->userable->lastName,
             "email" => $this->email,
             "phone" => $this->userable->phone,
             "image" => asset($this->userable->image->image),

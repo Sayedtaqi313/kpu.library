@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\FrontControllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StudentProfileRequest;
+use App\Http\Resources\ReserveResource;
 use App\Http\Resources\StudentProfileResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
@@ -18,9 +20,14 @@ class ProfileController extends Controller
 {
     public function showProfile(Request $request,)
     {
+
         $user = auth()->user();
+        $reserves = $user->reserves()->where("status", "active")->get();
         if ($user->type == "student") {
-            return StudentProfileResource::make($user);
+            return response()->json([
+                "user" => UserResource::make($user),
+                "books" => ReserveResource::collection($reserves)
+            ]);
         } else if ($user->type == "teacher") {
         } else {
             return response()->json(['message' => 'تابپ کاربر نامعتبر می باشد']);

@@ -41,11 +41,32 @@ class ReserveResource extends JsonResource
                 'book_status' => $this->book->barrow == "yes" ? "barrowable" : "reservable",
                 'return_date' => $this->duration->return_by
             ];
+        } else if ($request->has('get_reserved_book')) {
+            return [
+                'id' => $this->book->id,
+                'title' => $this->book->title,
+                'author' => $this->book->author,
+                'publisher' => $this->book->publisher,
+                'image_url' => asset($this->book->image->image),
+                'publicationYear' => $this->book->publicationYear,
+                'lang' => $this->book->lang,
+                'edition' => $this->book->edition,
+                'translator' => $this->book->translator,
+                'cat_id' => $this->book->cat_id,
+                'dep_id' => $this->book->dep_id,
+                'isbn' => $this->book->isbn,
+                'code' => $this->book->code,
+                'description' => $this->book->description,
+                'borrow' => $this->book->borrow == "yes" ? "borrowable" : "reservable",
+                'category' => $this->book->category->name,
+                'faculty' => $this->book->department->faculty->name,
+                'department' => $this->book->department->name
+            ];
         } else {
             return [
                 'book_title' => $this->book->title,
                 'book_image' => asset($this->book->image->image),
-                'return_date' => $this->duration->return_by,
+                'return_date' => $this->duration->return_by
             ];
         }
     }

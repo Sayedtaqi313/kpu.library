@@ -24,7 +24,14 @@ class AdminLoginRequest extends FormRequest
         return [
             "email" => "required|email",
             "password" => "required|string",
-            "type" => "required|in:assistant,employee"
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'ایمیل ضروری می باشد',
+            'email.email' => 'لطفا ایمیل معتبر وارد کنید',
         ];
     }
 }

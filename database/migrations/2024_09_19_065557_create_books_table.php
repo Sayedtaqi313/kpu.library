@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('publicationYear');
             $table->enum('lang', ['en', 'fa', 'pa']);
             $table->string('edition');
-            $table->string('translator');
+            $table->string('translator')->nullable();
             $table->string('isbn');
             $table->string('code');
             $table->text('description')->nullable();

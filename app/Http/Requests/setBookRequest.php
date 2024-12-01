@@ -25,4 +25,11 @@ class setBookRequest extends FormRequest
             'return_by' => 'required'
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            "return_by.required" => "تاریخ بازگشت ضروری می باشد",
+        ];
+    }
 }

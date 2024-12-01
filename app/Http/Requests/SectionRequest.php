@@ -22,7 +22,15 @@ class SectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "section" => "required",
+            "section" => "required|unique:sections,section,except,id",
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "section.required" => "نام الماری ضروری می باشد",
+            "section.unique" => "این نام قبلا انتخاب شده است",
         ];
     }
 }

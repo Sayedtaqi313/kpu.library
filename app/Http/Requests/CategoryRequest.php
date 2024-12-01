@@ -22,7 +22,15 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required"
+            "name" => "required|unique:categories,name,except,id"
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "نام کتگوری ضروری می باشد",
+            "name.unique" => "ای نام قبلا انتخاب شده"
         ];
     }
 }

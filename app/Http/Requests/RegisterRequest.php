@@ -22,8 +22,8 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "firstName" => "required|min:5|max:20",
-            "lastName" => "required|min:5|max:20",
+            "firstName" => "required",
+            "lastName" => "required",
             "email" => "required|email|unique:users",
             "password" => "required",
             "phone" => "required",
@@ -35,6 +35,29 @@ class RegisterRequest extends FormRequest
             "dep_id" => "required",
             "type" => "required|in:teacher,student",
             "image" => "required|image|max:1024|min:256"
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "firstName.required" => "نام ضروری می باشد",
+            "lastName.required" => "تخلص ضروری می با شد",
+            "email.required" => "ایمیل ضروری می باشد",
+            "password.required" => "پسورد ضروری می باشد",
+            "phone.required" => "شماره تلفن ضروری می باشد",
+            "nin.required" => "نمبر تذکره ضروری می باشد",
+            "nic.required" => "ای دی کارت پوهنتون ضروری می با شد",
+            "original_residence.required" => "سکونت اصلی خود را وارد کنید",
+            "current_residence.required" => "سکونت فعلی خود را وارد کنید",
+            "fac_id.required" => "فاکولته ضروری می باشد",
+            "dep_id.required" => "دیپاتمنت ضروری می باشد",
+            "type.required" => "پوزیشن شما ضروری می باشد",
+            "type.in" => "شما می توانید استاد یا محصل را انتخاب کنید",
+            "image.required" => "عکس ضروری می باشد",
+            "image.image" => "لطفا یک عکس معتبر وارد کنید",
+            "image.max" => "حجم عکس زیاد می باشد",
+            "image.min" => "حجم عکس کم می باشد",
         ];
     }
 }

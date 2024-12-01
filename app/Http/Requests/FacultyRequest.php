@@ -25,4 +25,12 @@ class FacultyRequest extends FormRequest
             "name" => "required|unique:faculties,name,except,id"
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "نام ضروری می باشد",
+            "name.unique" => "این نام قبلا انتخاب شده است"
+        ];
+    }
 }

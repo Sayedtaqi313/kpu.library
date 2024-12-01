@@ -27,4 +27,13 @@ class AdminUpdateRequest extends FormRequest
             "password" => "required"
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "نام ضروری می باشد",
+            "email.required" => "ایمیل ضروری می باشد ",
+            "password.required" => "پسورد ضروری می باشد"
+        ];
+    }
 }

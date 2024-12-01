@@ -26,4 +26,13 @@ class DepartmentRequest extends FormRequest
             "fac_id" => "required|exists:faculties,id"
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "نام ضروری می باشد",
+            "name.unique" => "ای نام قبلا انتخاب شده است",
+            "fac_id.required" => "فاکلوته معتبر نمی باشد"
+        ];
+    }
 }
